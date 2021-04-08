@@ -1,0 +1,5 @@
+client1/conf/Sync
+client1/conf/index-v0.14.0.db
+client2/conf/Sync
+client1/conf/index-v0.14.0.db
+data/*

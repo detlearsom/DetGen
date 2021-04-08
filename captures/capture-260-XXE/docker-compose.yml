@@ -1,0 +1,59 @@
+version: '2'
+
+services:
+  apache:
+    image: 'detlearsom/xxe'
+    volumes:
+       - '$PWD/config:/var/www/html'
+    ports:
+      - "80:80"
+    networks:
+      capture:
+        ipv4_address: 172.16.238.20
+
+
+  attacker:
+    image: 'detlearsom/python-requests'
+#    command: python /usr/share/scripts/attack$SCENARIO.py
+    command: sleep 1000
+    volumes:
+      - '$PWD/attacker-share:/usr/share/scripts'
+    networks:
+      - capture
+
+  tcpdump_attacker:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-260-xxe-attacker-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:attacker"
+    depends_on:
+      - attacker
+
+  tcpdump_apache:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-260-xxe-server-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:apache"
+    depends_on:
+      - apache
+
+
+
+  dummy:
+    image: 'ubuntu'
+    networks:
+      - capture
+    depends_on:
+      - apache
+      - attacker
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+        gateway: 172.16.238.1

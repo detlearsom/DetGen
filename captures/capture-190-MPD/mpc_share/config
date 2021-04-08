@@ -1,0 +1,11 @@
+mpd_host: "172.16.238.40"
+mpd_port: "6600"
+visualizer_fifo_path = "/tmp/mpd.fifo"
+visualizer_output_name = "my_fife"
+visualizer_sync_interval = "30"
+visualizer_in_stereo = "yes"
+visualizer_type = "wave"
+#visualizer_type = "spectrum"
+visualizer_look = "+|"
+#visualizer_look = "◆│"  # “diamond character” and “box-drawing character”
+#visualizer_color = "blue"

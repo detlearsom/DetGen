@@ -1,0 +1,54 @@
+version: '2'
+services:
+  synclient1:
+    image: 'linuxserver/syncthing:129'
+    ports:
+      - "3384:8384"
+    volumes:
+      - '${PWD}/client1/conf:/config'
+    networks:
+      - capture
+
+  synclient2:
+    image: 'linuxserver/syncthing:129'
+    ports:
+      - "3385:8384"
+    volumes:
+      - '${PWD}/client2/conf:/config'
+    networks:
+      - capture
+
+  synclient3:
+    image: 'linuxserver/syncthing:129'
+    ports:
+      - "3386:8384"
+    volumes:
+      - '${PWD}/client3/conf:/config'
+    networks:
+      - capture
+      
+  tcpdump_syncthing:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-080-syncthing-${CAPTURETIME}.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:synclient1"
+
+  tcpdump_syncthing2:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-080-syncthing2-${CAPTURETIME}.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:synclient2"
+
+  tcpdump_syncthing3:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-080-syncthing3-${CAPTURETIME}.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:synclient3"
+
+networks:
+  capture:
+    driver: "bridge"
+      

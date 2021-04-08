@@ -1,0 +1,65 @@
+version: '2'
+services:
+  ircd:
+    image: 'thenotary/ircd-docker'
+    networks:
+      capture:
+        ipv4_address: 172.16.240.5
+    ports:
+      - "6667:6667"
+    
+  client1:
+    image: 'detlearsom/netcat'
+    volumes:
+      - $PWD/client1/:/scripts
+      - $PWD/dataToShare:/data
+    networks:
+      capture:
+        ipv4_address: 172.16.240.20
+    privileged: true
+    command: /scripts/irc-script1.sh
+
+  client2:
+    image: 'detlearsom/netcat'
+    volumes:
+      - $PWD/client2/:/scripts   
+      - $PWD/dataToShare:/data
+    networks:
+      capture:
+        ipv4_address: 172.16.240.25
+    privileged: true
+    command: /scripts/irc-script1.sh
+  
+  tcpdump_ircd:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-100-ircd-server-${CAPTURETIME}.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:ircd"
+
+  tcpdump_client1:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-100-irc-client1-${CAPTURETIME}.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:client1"
+
+  tcpdump_client2:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-100-irc-client2-${CAPTURETIME}.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:client2"
+
+
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.240.0/24
+        gateway: 172.16.240.1
+
+

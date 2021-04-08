@@ -1,0 +1,78 @@
+version: '2'
+
+services:
+  sql:
+    image: 'mysql/mysql-server'
+    container_name: mysql
+    ports:
+      - '3306'
+    volumes: 
+      - $PWD/sql-share:/home/share/
+      - $PWD/sql_settings/my.cnf:/etc/my.cnf
+    networks:
+      capture:
+        ipv4_address: 172.16.238.22
+  
+  apache:
+    image: 'detlearsom/php'
+    volumes:
+       - '$PWD/config:/var/www/html'
+    ports:
+      - "80:80"
+    networks:
+      capture:
+        ipv4_address: 172.16.238.20
+
+  admin_user:
+    image: 'python-requests'
+    command: python /usr/share/scripts/populate_userlist.py
+    volumes:
+      - '$PWD/admin-share:/usr/share/scripts'
+    networks:
+      - capture
+
+  tcpdump_apache:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-150-apache-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:apache"
+    depends_on:
+      - dummy
+
+  tcpdump_admin:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-150-admin-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:admin_user"
+    depends_on:
+      - dummy
+
+  tcpdump_sql:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-150-sql-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:sql"
+    depends_on:
+      - dummy
+
+  dummy:
+    image: 'alpine'
+    networks:
+      - capture
+    depends_on:
+      - sql
+      - apache
+      - admin_user
+
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+        gateway: 172.16.238.1

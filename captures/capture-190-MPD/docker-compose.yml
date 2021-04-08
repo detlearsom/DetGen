@@ -1,0 +1,51 @@
+version: '2'
+
+services:
+  mopidy:
+    image: 'detlearsom/mpd'
+    command: mopidy
+    volumes: 
+      - '$PWD/media:/var/lib/mopidy/media:ro'
+      - '$PWD/mpd_share/:/config'
+    ports:
+      - '6600:6600'
+      - '6680:6680'
+      - '5555/udp'
+    networks: 
+      capture:
+        ipv4_address: '172.16.238.40'
+
+  mpc:
+    image: 'detlearsom/mpc_cli'
+    command: tail -f /dev/null
+    volumes:
+      - '$PWD/scripts/:/var/lib/scripts' 
+    networks: 
+      - capture
+
+  tcpdump_mpd:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-0190-mpd-server-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:mopidy"
+    depends_on:
+      - mopidy
+
+  tcpdump_mpc:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-0190-mpd-client-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:mpc"
+    depends_on:
+      - mpc
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+        gateway: 172.16.238.1

@@ -1,0 +1,59 @@
+version: '2'
+services:
+  apache:
+    image: 'detlearsom/heartbleed'
+    volumes:
+      - '$PWD/config:/var/www/html'
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      capture:
+        ipv4_address: 172.16.233.15
+
+
+  msf:
+    image: 'detlearsom/msfconsole'
+    command: /var/lib/msf_script.sh $DURATION
+     # - msfconsole -r /var/lib/msf_script.rc
+    volumes:
+      - '$PWD/msf_share:/var/lib'
+    networks:
+      capture:
+        ipv4_address: 172.16.233.20
+
+
+  tcpdump_apache:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-130-heartbleed-server-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:apache"
+    depends_on:
+      - dummy
+
+  tcpdump_msf:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-130-heartbleed-client-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:msf"
+    depends_on:
+      - dummy
+
+
+  dummy:
+    image: 'ubuntu'
+    networks:
+      - capture
+    depends_on:
+      - apache
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.233.0/24
+        gateway: 172.16.233.1

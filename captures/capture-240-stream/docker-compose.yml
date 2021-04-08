@@ -1,0 +1,79 @@
+version: '2'
+
+services:
+  nginx_host:
+    image: 'detlearsom/nginx-rtmp'
+    ports:
+      - '1935:1935'
+      - '8081:8080'
+    networks:
+      capture:
+        ipv4_address: 172.26.5.2
+
+  streamer:
+    image: 'detlearsom/ffmpeg'
+    command: /usr/share/scripts/start_stream.sh
+#    command: sleep 1000
+    volumes:
+      - '$PWD/streamer-share:/usr/share/'
+    networks:
+      - capture
+    depends_on:
+      - nginx_host
+
+  viewer:
+    image: 'detlearsom/rtmpdump'
+    command: /usr/share/scripts/watch_stream.sh
+#    command: sleep 1000
+    volumes:
+      - '$PWD/viewer-share:/usr/share/scripts'
+    networks:
+      - capture
+    depends_on:
+      - streamer
+
+  tcpdump_nginx_host:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-240-nginx_rtmp_host-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:nginx_host"
+    depends_on:
+      - dummy
+
+  tcpdump_streamer:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-240-streamer-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:streamer"
+    depends_on:
+      - dummy
+
+  tcpdump_viewer:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-240-viewer-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:viewer"
+    depends_on:
+      - dummy
+
+  dummy:
+    image: 'ubuntu'
+    networks:
+      - capture
+    depends_on:
+      - nginx_host
+
+  
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.26.5.0/24
+        gateway: 172.26.5.1
+

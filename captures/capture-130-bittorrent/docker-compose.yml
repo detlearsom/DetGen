@@ -1,0 +1,75 @@
+version: '2'
+
+services:
+  tracker:
+    image: 'detlearsom/opentracker'
+    ports:
+      - 6969:6969
+      - 6969:6969/udp
+    command: opentracker -f /etc/opentracker/opentracker.conf 
+    hostname: tracker
+    container_name: tracker
+    networks:
+      capture:
+        ipv4_address: 172.16.238.22
+
+  torrent_host:
+    image: 'detlearsom/torrent-host'
+    ports:
+      - "9096:9096"
+      - "31967:31967"
+      - "31967:31967/udp"
+    volumes: 
+      - '$PWD/host-share:/root/shared'
+    command: /root/shared/torrentHost.sh $DURATION
+    networks:
+      capture:
+        ipv4_address: 172.16.238.15
+
+
+  torrent_client1:
+    image: 'detlearsom/torrent-host'
+    container_name: torrent_client1
+    ports:
+      - "9097:9097"
+      - "31968:31968"
+      - "31968:31968/udp"
+    command: /root/shared/torrentClient.sh $DURATION
+    volumes: 
+      - '$PWD/client-share:/root/shared'
+    networks:
+      capture:
+        ipv4_address: 172.16.238.20
+    depends_on:
+      - torrent_host
+
+
+  tcpdump_torrent_host:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-130-torrent-host-${CAPTURETIME}-sc${SCENARIO}-$REPNUM.pcap"
+    depends_on:
+      - torrent_host
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:torrent_host"
+
+
+
+  tcpdump_client1:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-130-torrent-client1-${CAPTURETIME}-sc${SCENARIO}-$REPNUM.pcap"
+    depends_on:
+      - torrent_client1
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:torrent_client1"
+
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+        gateway: 172.16.238.1

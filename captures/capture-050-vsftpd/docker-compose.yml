@@ -1,0 +1,47 @@
+version: '2'
+services:
+  vsftpd:
+    image: 'detlearsom/vsftpd'
+    networks:
+      capture:
+        ipv4_address: 172.16.238.15
+    volumes:
+      - '$PWD/users:/home/vsftpd'
+    environment:
+      - FTP_USER=$User
+      - FTP_PASS=$Password
+
+  ftp-client:
+    image: 'detlearsom/ftp-client'
+    volumes:
+      - $PWD/dataToShare:/dataToShare:ro
+      - $PWD/receive:/usr/src/ftp
+      - $PWD/scripts:/usr/src/scripts:ro
+    networks:
+      capture:
+        ipv4_address: 172.16.238.20
+    command: tail -F anything
+
+  tcpdump_vsftpd:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-050-vsftpd-server-${CAPTURETIME}-sc${SCENARIO}-${REPNUM}.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:vsftpd"
+
+  tcpdump_ftp-client:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-050-vsftpd-client-${CAPTURETIME}-sc${SCENARIO}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:ftp-client"
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+        gateway: 172.16.238.1
+
