@@ -1,7 +1,7 @@
 version: '2'
 services:
   apache:
-    image: 'httpd'
+    image: 'detlearsom/httpd'
     volumes:
       - '$PWD/config:/usr/local/apache2/htdocs'    
     ports:
