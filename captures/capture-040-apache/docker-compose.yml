@@ -1,0 +1,46 @@
+version: '2'
+services:
+  apache:
+    image: 'httpd'
+    volumes:
+      - '$PWD/config:/usr/local/apache2/htdocs'    
+    ports:
+      - "80:80"
+    networks:
+      - capture
+  siege:
+    image: 'detlearsom/siege'
+    command: -c${CONCURRENT_THREADS} -r${REQUESTS} -v http://apache
+    networks:
+      - capture
+
+  tcpdump_apache:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-040-apache-server-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:apache"
+    depends_on:
+      - apache
+
+
+  tcpdump_siege:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-040-apache-client-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:siege"
+    depends_on:
+      - dummy
+
+  dummy:
+    image: 'ubuntu'
+    networks:
+      - capture
+    depends_on:
+      - tcpdump_apache
+      - siege
+
+networks:
+  capture:
+    driver: "bridge"

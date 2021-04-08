@@ -1,0 +1,280 @@
+/*
+
+	Design by TEMPLATED
+	http://templated.co
+	Released for free under the Creative Commons Attribution License
+
+	Name       : Cupcaked Out
+	Version    : 1.0
+	Released   : 20130222
+	
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: #e59e8b;
+	text-decoration: underline;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+body {
+	font-size: 12pt;
+	line-height: 2em;
+	font-family: Georgia, serif;
+	background: #184C56 url('https://templated.co/items/demos/cupcakedout/images/bg2.gif') top left repeat-x;
+	color: #cacfd1;
+}
+
+br.clear {
+	clear: both;
+}
+
+h1,h2,h3,h4 {
+	font-weight: normal;
+	text-transform: lowercase;
+}
+
+h2,h3,h4 {
+	margin-bottom: 1.25em;
+	font-family: Bitter, serif;
+	color: #ffffff;
+}
+
+img.left {
+	float: left;
+	margin: 8px 20px 20px 0;
+}
+
+img.top {
+	margin: 8px 0 20px 0;
+}
+
+p {
+	margin-bottom: 1.75em;
+}
+
+ul {
+	margin-bottom: 1.75em;
+}
+
+.imageList {
+	list-style: none;
+}
+
+.imageList li {
+	clear: both;
+}
+
+#banner {
+	background: #ffffff;
+}
+
+#box1 {
+	width: 600px;
+	overflow: hidden;
+	margin: 0px 0 24px 0;
+}
+
+#box2 {
+	width: 288px;
+	overflow: hidden;
+	float: left;
+}
+
+#box3 {
+	width: 288px;
+	overflow: hidden;
+	margin: 0px 0 0 312px;
+}
+
+#content {
+	width: 600px;
+	margin: 0px 0 0 324px;
+	padding: 0px;
+}
+
+#copyright {
+	margin: 32px 0 64px 0;
+	text-align: center;
+	text-transform: lowercase;
+	color: #5B858F;
+}
+
+#copyright a {
+	color: #5B858F;
+}
+
+#footer {
+	position: relative;
+	padding: 28px;
+	width: 922px;
+	background: #6BA1AD url('https://templated.co/items/demos/cupcakedout/images/bg3.gif') top left repeat-x;
+	color: #e2eef7;
+	border: solid 1px #B3DDE5;
+	border-top: solid 1px #6095A0;
+	text-shadow: 0px 1px 1px #2C818E;
+}
+
+#footer a {
+	color: #eff6fb;
+}
+
+#footer h2, #footer h3, #footer h4 {
+	color: #ffffff;
+	text-shadow: 0px 1px 1px #2C818E;
+}
+
+#footer p {
+	margin-bottom: 0;
+}
+
+#footer ul {
+	list-style: none;
+	margin-bottom: 0;
+}
+
+#footer ul li {
+	padding: 8px 0 8px 0;
+	border-top: dashed 1px #aed1ec;
+}
+
+#footer ul li.first {
+	padding-top: 0;
+	border-top: 0;
+}
+
+#footerContent {
+	width: 600px;
+	margin: 0px 0 0 322px;
+}
+
+#footerSidebar {
+	width: 300px;
+	float: left;
+}
+
+#header {
+	position: relative;
+	padding: 28px;
+	height: 150px;
+}
+
+#logo {
+	text-align: center;
+	position: relative;
+	margin: -14px auto;
+	height: 112px;
+	line-height: 112px;
+}
+
+#logo a {
+	text-decoration: none;
+	color: #ffffff;
+	text-shadow: 0 3px 1px #00313d;
+}
+
+#logo h1 {
+	font-size: 3em;
+	font-family: Bitter, serif;
+}
+
+#main {
+	position: relative;
+	padding: 48px 28px 0 28px;
+	width: 924px;
+	background: #ffffff;
+	color: #424242;
+}
+
+#main strong {
+	color: #282828;
+}
+
+#main a {
+	color: #D17968;
+}
+
+#main h2, #main h3, #main h4 {
+	color: #262626;
+}
+
+#main ul {
+	list-style: none;
+}
+
+#main ul li {
+	padding: 8px 0 8px 0;
+	border-top: dashed 1px #c7c7c7;
+}
+
+#main ul li.first {
+	padding-top: 0;
+	border-top: 0;
+}
+
+#nav {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 978px;
+	height: 66px;
+	line-height: 66px;
+	margin: 0px 0 0 0;
+	background: #e59e8b url('https://templated.co/items/demos/cupcakedout/images/bg1.gif');
+	text-transform: lowercase;
+	font-family: Bitter, serif;
+	border: solid 1px #C67765;
+	border-top: solid 2px #FFE2DB;
+	font-size: 1.1em;
+}
+
+#nav a {
+	text-decoration: none;
+	text-shadow: 0px 1px 1px #77241B;
+	color: #ffffff;
+}
+
+#nav ul {
+	list-style: none;
+	margin: 0 auto;
+	width: 882px;
+	text-align: center;
+}
+
+#nav ul li {
+	display: inline;
+	text-align: center;
+	padding: 0 1em 0 1em;
+}
+
+#outer {
+	position: relative;
+	width: 980px;
+	margin: 64px auto 0 auto;
+}
+
+#search input.button {
+	margin-left: 1em;
+	border: 0px;
+	color: #ffffff;
+	background: #e59e8b;
+	padding: 5px;
+}
+
+#search input.text {
+	border: dashed 1px #ffffff;
+	padding: 4px;
+}
+
+#sidebar {
+	width: 300px;
+	float: left;
+	padding: 0px;
+}

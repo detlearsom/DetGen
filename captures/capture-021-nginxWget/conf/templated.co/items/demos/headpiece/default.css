@@ -1,0 +1,296 @@
+
+html, body
+{
+	height: 100%;
+}
+
+body
+{
+	margin: 0px;
+	padding: 0px;
+	background: #F9D27E url(https://templated.co/items/demos/headpiece/images/img01.jpg) repeat;
+	font-family: 'Archivo Narrow', sans-serif;
+	font-size: 11pt;
+	color: #727272;
+}
+
+h1, h2, h3
+{
+	margin: 0;
+	padding: 0;
+	font-family: 'Archivo Narrow', sans-serif;
+	font-weight: 200;
+	color: #464646;
+}
+
+p, ol, ul
+{
+	margin-top: 0px;
+}
+
+p
+{
+	line-height: 180%;
+}
+
+strong
+{
+}
+
+a
+{
+	color: #B30100;
+}
+
+a:hover
+{
+	text-decoration: none;
+}
+
+a img
+{
+	border: none;
+}
+
+img.border
+{
+}
+
+img.alignleft
+{
+	float: left;
+}
+
+img.alignright
+{
+	float: right;
+}
+
+img.aligncenter
+{
+	margin: 0px auto;
+}
+
+hr
+{
+	display: none;
+}
+
+/** WRAPPER */
+
+#wrapper
+{
+	overflow: hidden;
+	width: 940px;
+	padding: 40px;
+	background: #FFFFFF;
+}
+
+.container
+{
+	width: 1020px;
+	margin: 0px auto;
+}
+
+.clearfix
+{
+	clear: both;
+}
+
+/** LIST STYLE */
+
+ul.style1
+{
+	overflow: hidden;
+	margin: 0em;
+	padding: 0em;
+	list-style: none;
+}
+
+ul.style1 li
+{
+	clear: both;
+	padding: 1em 0em 1em 0em;
+	border-top: 1px solid #CFCFCF;
+}
+
+ul.style1 p
+{
+}
+
+ul.style1 a
+{
+	text-decoration: none;
+	color: #909090;
+}
+
+ul.style1 a:hover
+{
+	text-decoration: underline;
+}
+
+ul.style1 img
+{
+	float: left;
+	margin-right: 1.5em;
+	border-radius: 5px;
+}
+
+ul.style1 .first
+{
+	padding-top: 0;
+	border-top: none;
+}
+
+ul.style1 .date a
+{
+	margin: 0px;
+	padding: 0px 0px 0px 0px;
+	font-weight: bold;
+	color: #494949;
+}
+
+
+/** HEADER */
+
+#header
+{
+	overflow: hidden;
+}
+
+/** LOGO */
+
+#logo
+{
+}
+
+#logo h1, #logo p
+{
+	margin: 0px;
+	line-height: normal;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+#logo h1 a
+{
+	display: block;
+	padding: 0px 0px 0px 0px;
+	letter-spacing: -1px;
+	text-decoration: none;
+	font-size: 2.75em;
+	font-weight: 200;
+	color: #25282B;
+}
+
+#logo p {
+	padding: 0px 0px 30px 0px;
+	font-size: 1.50em;
+}
+
+/** MENU */
+
+#menu
+{
+	overflow: hidden;
+	border-bottom: 1px solid #E3E3E3;
+}
+
+#menu ul
+{
+	margin: 20px 0px;
+	padding: 0px;
+	list-style: none;
+	line-height: normal;
+	text-align: center;
+}
+
+#menu li
+{
+	display: inline-block;
+	padding: 0px 25px;
+	border-left: 1px solid #E3E3E3;
+}
+
+#menu a
+{
+	display: block;
+	height: 50px;
+	line-height: 50px;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-family: 'Archivo Narrow', sans-serif;
+	font-size: 1.25em !important;
+	color: #5C5C5C;
+}
+
+#menu a:hover
+{
+	text-decoration: underline;
+}
+
+#menu .first
+{
+	border-left: none;
+}
+
+/** PAGE */
+
+#page
+{
+	overflow: hidden;
+	padding: 40px 0px;
+}
+
+/** CONTENT */
+
+#content
+{
+	float: left;
+	width: 600px;
+}
+
+#content h2
+{
+	padding: 0em 0em 1em 0em;
+	font-size: 2.25em;
+}
+
+#content img {
+	padding-bottom: 30px;
+}
+
+/** SIDEBAR */
+
+#sidebar
+{
+	float: right;
+	width: 300px;
+}
+
+#sidebar h2
+{
+	padding: 0em 0em 1em 0em;
+	font-size: 1.75em;
+}
+
+/* Footer */
+
+#footer
+{
+	overflow: hidden;
+	background: #25282B;
+	padding: 40px 0px 30px 0px;
+	color: #868686;
+}
+
+#footer p
+{
+	text-align: center;
+	font-size: 14px;
+}
+
+#footer a
+{
+	color: #AEAEAE;
+}

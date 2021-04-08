@@ -1,0 +1,51 @@
+version: '2'
+services:
+  nginx:
+    image: 'nginx:1.13.8-alpine'
+    networks:
+      - capture
+
+  tcpdump_nginx:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-020-nginx-server-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:nginx"
+    depends_on:
+      - dummy1
+
+  dummy1:
+    image: 'ubuntu:18.04'
+    networks:
+      - capture
+    depends_on:
+      - nginx
+
+
+  siege:
+    image: 'detlearsom/siege'
+    command: -c${CONCURRENT_THREADS} -r${REQUESTS} -v http://nginx
+    networks:
+      - capture
+    depends_on:
+      - tcpdump_nginx
+
+  tcpdump_siege:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-020-nginx-client-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:siege"
+    depends_on:
+      - dummy2
+
+  dummy2:
+    image: 'ubuntu:18.04'
+    networks:
+      - capture
+    depends_on:
+      - siege
+
+networks:
+  capture:
+    driver: "bridge"

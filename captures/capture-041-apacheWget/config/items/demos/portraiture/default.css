@@ -1,0 +1,263 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+	background: #141414 url(https://templated.co/items/demos/portraiture/images/img01.jpg) repeat;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 13px;
+	color: #4F4F4F;
+}
+
+
+h1, h2, h3 {
+	margin: 0;
+	padding: 0;
+	font-family: 'Archivo Narrow', sans-serif;
+	text-transform: uppercase;
+}
+
+p, ol, ul {
+	margin-top: 0px;
+}
+
+p {
+	line-height: 180%;
+}
+
+strong {
+}
+
+a {
+	color: #FF5241;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+a img {
+	border: none;
+}
+
+img.border {
+}
+
+img.alignleft {
+	float: left;
+}
+
+img.alignright {
+	float: right;
+}
+
+img.aligncenter {
+	margin: 0px auto;
+}
+
+hr {
+	display: none;
+}
+
+ul.style1 {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+ul.style1 li {
+	padding: 10px 0px 10px 0px;
+	border-top: 1px solid #CFCFCF;
+}
+
+ul.style1 .first {
+	padding-top: 0px;
+	border-top: none;
+}
+
+/** WRAPPER */
+
+#wrapper {
+	width: 900px;
+	padding: 0px 50px;
+	background: #FFFFFF;
+}
+
+.container {
+	width: 1000px;
+	margin: 0px auto;
+}
+
+.clearfix {
+	clear: both;
+}
+
+/** HEADER */
+
+#header {
+	overflow: hidden;
+}
+
+/** LOGO */
+
+#logo {
+	overflow:  hidden;
+	padding: 30px 0px 30px 0px;
+}
+
+#logo h1, #logo span {
+	margin: 0px;
+	line-height: normal;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+#logo h1 a {
+	text-decoration: none;
+	font-size: 2.50em;
+	color: #6FBEC6;
+}
+
+#logo span {
+	display: block;
+	font-family: 'Archivo Narrow', sans-serif;
+	font-size: 1.30em;
+}
+
+#logo a {
+	color: #333333;
+}
+
+/** MENU */
+
+#menu {
+	overflow: hidden;
+	padding: 20px 0px;
+	border-top: 1px solid #CFCFCF;
+}
+
+#menu ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	line-height: normal;
+	text-align: center;
+}
+
+#menu li {
+	display: inline-block;
+}
+
+#menu a {
+	display: block;
+	padding: 10px 25px;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-family: 'Archivo Narrow', sans-serif;
+	font-size: 18px;
+	font-weight: 700;
+	color: #333333;
+}
+
+#menu a:hover {
+	text-decoration: underline;
+}
+
+#menu .active a {
+	background: #FF5241;
+	color: #FFFFFF;
+}
+
+/** PAGE */
+
+#page {
+	overflow: hidden;
+	margin: 30px 0px;
+	padding: 30px 0px;
+	border-top: 1px solid #CFCFCF;
+	border-bottom: 1px solid #CFCFCF;
+}
+
+/** CONTENT */
+
+#content {
+	float: left;
+	width: 550px;
+}
+
+#content h2 {
+	padding: 0em 0em 1em 0em;
+	font-size: 2.25em;
+}
+
+/** SIDEBAR */
+
+#sidebar {
+	float: right;
+	width: 300px;
+}
+
+#sidebar h2 {
+	padding: 0em 0em 1em 0em;
+	font-size: 2.25em;
+}
+
+/** BANNER */
+
+#banner
+{
+	padding: 30px 0px 0px 0px;
+	border-top: 1px solid #CFCFCF;
+}
+
+
+
+/* Footer */
+
+#footer {
+	overflow: hidden;
+	padding: 20px 0px 60px 0px;
+}
+
+#footer p {
+	text-align: center;
+}
+
+#footer a {
+}
+
+#slider
+{
+	position: relative;
+		width: 900px;
+	margin: 0 auto;
+}
+
+	#slider .viewer
+	{
+		width: 900px;
+		height: 500px;
+		overflow: hidden;
+		margin: 0 auto;
+	}
+
+		#slider .viewer .reel
+		{
+			display: none;
+		height: 500px;
+		}
+
+		#slider .viewer .reel .slide
+		{
+			position: relative;
+			width: 900px;
+			height: 500px;
+		}
+		
+		
+		
+		
+		
+		

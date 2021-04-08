@@ -1,0 +1,51 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:1.13.8-alpine
+    volumes:
+      - $PWD/conf/default.conf:/etc/nginx.conf:ro
+      - $PWD/conf:/usr/share/nginx/html
+    networks:
+      - capture
+  wget:
+    image: 'detlearsom/wget'
+    command: wget --recursive --page-requisites --html-extension --convert-links "http://nginx" -P /data
+    volumes:
+      - "$PWD/data:/data"
+    networks:
+      - capture
+    depends_on:
+      - dummy
+
+  tcpdump_nginx:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-021-nginx-server-${CAPTURETIME}-$REPNUM.pcap"
+    depends_on:
+      - nginx
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:nginx"
+    depends_on:
+      - dummy
+
+
+  tcpdump_wget:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-021-wget-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:wget"
+    depends_on:
+      - dummy
+
+
+  dummy:
+    image: 'alpine'
+    networks:
+      - capture
+    depends_on:
+      - nginx
+
+networks:
+  capture:
+    driver: "bridge"

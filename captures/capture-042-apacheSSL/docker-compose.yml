@@ -1,0 +1,86 @@
+version: '2'
+services:
+  apache:
+    image: 'httpd'
+    volumes:
+      - '$PWD/config/ssl/:/usr/local/apache2/conf'
+      - '$PWD/config:/usr/local/apache2/htdocs'    
+      - '$PWD/config/extra/httpd-ssl.conf:/usr/local/apache2/conf/extra/httpd-ssl.conf'
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      capture:
+        ipv4_address: 172.16.238.15
+
+  wget_80:
+    image: 'detlearsom/wget'
+    command: watch -n 5 wget "http://172.16.238.15" -P /data/downloaded
+    depends_on:
+      - apache
+    volumes:
+      - "$PWD/data:/data"
+      - "$PWD/config/ssl:/etc/ssl"
+    networks:
+      capture:
+        ipv4_address: 172.16.238.38
+
+  wget_443:
+    image: 'detlearsom/wget'
+#    command: watch -n 5 wget --ca-certificate=/etc/ssl/server.crt "https://172.16.238.15:443" -P /data/downloaded
+    depends_on:
+      - apache
+    volumes:
+      - "$PWD/data:/data"
+      - "$PWD/config/ssl:/etc/ssl"
+    networks:
+      capture:
+        ipv4_address: 172.16.238.40
+
+  tcpdump_apache:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-042-apacheSSL-server-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:apache"
+    depends_on:
+      - dummy
+
+
+  tcpdump_wget_80:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-042-apacheSSL-HTTPclient-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:wget_80"
+    depends_on:
+      - dummy
+
+
+  tcpdump_wget_443:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-042-apacheSSL-HTTPSclient-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:wget_443"
+    depends_on:
+      - dummy
+
+  dummy:
+    image: 'ubuntu'
+    networks:
+      - capture
+    depends_on:
+      - apache
+      - wget_80
+      - wget_443
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+        gateway: 172.16.238.1
+

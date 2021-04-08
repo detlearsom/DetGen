@@ -1,0 +1,313 @@
+/*
+
+	Design by TEMPLATED
+	http://templated.co
+	Released for free under the Creative Commons Attribution License
+
+	Name       : Nameless Geometry
+	Version    : 1.0
+	Released   : 20130222
+	
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: #cfcfcf;
+	text-decoration: underline;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+body {
+	font-size: 11pt;
+	line-height: 1.5em;
+	font-family: 'Trebuchet MS', sans-serif;
+	background: #1f1f1f url('https://templated.co/items/demos/namelessgeometry/images/bg.png');
+	color: #909090;
+}
+
+strong {
+	color: #cfcfcf;
+}
+
+br.clear {
+	clear: both;
+}
+
+h1,h2,h3,h4 {
+	font-weight: normal;
+	color: #eaeaea;
+	text-shadow: 0 2px 1px #181818;
+}
+
+h2,h3,h4 {
+	font-size: 1.5em;
+	margin-bottom: 1em;
+	font-family: 'Yanone Kaffeesatz', sans-serif;
+	color: #ffffff;
+}
+
+img {
+	border-bottom: solid 2px #1c1c1c;
+}
+
+img.left {
+	float: left;
+	margin: 4px 20px 20px 0;
+}
+
+img.top {
+	margin: 4px 0 20px 0;
+}
+
+p {
+	margin-bottom: 1.25em;
+}
+
+ul {
+	margin-bottom: 3em;
+}
+
+#bg {
+	background: url('https://templated.co/items/demos/namelessgeometry/images/shadow.png') top left repeat-x;
+	padding: 40px 0 0 0;
+}
+
+#banner {
+	background: #ffffff;
+}
+
+#box1 {
+	width: 556px;
+	overflow: hidden;
+	margin: 0 0 28px 0;
+}
+
+#box2 {
+	width: 264px;
+	overflow: hidden;
+	float: left;
+}
+
+#box3 {
+	width: 264px;
+	overflow: hidden;
+	margin: 0 0 0 292px;
+}
+
+#content {
+	width: 556px;
+	margin: 0 0 0 280px;
+	padding: 0;
+}
+
+#copyright {
+	text-align: center;
+	padding: 8px 0 80px 0;
+	color: #404040;
+	text-shadow: 0 1px 0 #101010;
+}
+
+#copyright a {
+	color: #404040;
+}
+
+#footer {
+	position: relative;
+	padding: 32px;
+	width: 1116px;
+	color: #808080;
+	margin-top: 16px;
+	text-shadow: 0 1px 0 #000000;
+}
+
+#footer a {
+	color: #a0a0a0;
+}
+
+#footer h2, #footer h3, #footer h4 {
+	color: #ffffff;
+}
+
+#footer p {
+	margin-bottom: 0;
+}
+
+#footer ul {
+	list-style: none;
+	margin-bottom: 0;
+}
+
+#footer ul li {
+	padding: 16px 0 16px 0;
+	border-top: solid 1px #353535;
+	border-bottom: solid 1px #101010;
+}
+
+#footer ul li.first {
+	padding-top: 0;
+	border-top: 0;
+}
+
+#footer ul li.last {
+	padding-bottom: 0;
+	border-bottom: 0;
+}
+
+#footerContent {
+	width: 836px;
+	float: left;
+}
+
+#footerSidebar {
+	width: 252px;
+	margin: 0 0 0 864px;
+}
+
+#header {
+	position: relative;
+	padding: 32px;
+	height: 130px;
+}
+
+#logo {
+	position: absolute;
+	top: 32px;
+	left: 32px;
+	height: 130px;
+	line-height: 130px;
+}
+
+#logo a {
+	text-decoration: none;
+	color: #ffffff;
+	text-shadow: 0 2px 2px #000000;
+}
+
+#logo h1 {
+	font-size: 3em;
+	font-family: 'Yanone Kaffeesatz', sans-serif;
+}
+
+#main {
+	position: relative;
+	padding: 64px 32px 24px 32px;
+	width: 1116px;
+	background: #262626 url('https://templated.co/items/demos/namelessgeometry/images/cbg.png') top left repeat-x;
+	border-top: solid 1px #606060;
+	border-bottom: solid 1px #151515;
+	text-shadow: 0 1px 0 #101010;
+}
+
+#main ul {
+	list-style: none;
+}
+
+#main ul li {
+	padding: 12px 0 12px 0;
+	border-top: solid 1px #404040;
+	border-bottom: solid 1px #181818;
+}
+
+#main ul li.first {
+	padding-top: 0;
+	border-top: 0;
+}
+
+#main ul li.last {
+	padding-bottom: 0;
+	border-bottom: 0;
+}
+
+#main ul.imageList {
+	list-style: none;
+}
+
+#main ul.imageList li {
+	padding: 20px 0 20px 0;
+}
+
+#main ul.imageList li.first {
+	padding-top: 0;
+}
+
+#main ul.imageList li.last {
+	padding-bottom: 0;
+}
+
+#main ul.imageList li img {
+	float: left;
+}
+
+#main ul.imageList li p {
+	padding: 0;
+	margin: 0;
+}
+
+#nav {
+	position: absolute;
+	right: 32px;
+	height: 50px;
+	line-height: 50px;
+	top: 75px;
+	background: #6f2f2f url('https://templated.co/items/demos/namelessgeometry/images/navbg.png') top left repeat-x;
+	font-family: 'Yanone Kaffeesatz', sans-serif;
+	font-size: 1.4em;
+	padding: 0 1em 0 1em;
+	border-top: solid 1px #ab6f6f;
+}
+
+#nav a {
+	text-decoration: none;
+	color: #ffffff;
+	text-shadow: 0 2px 1px #3F1C1C;
+}
+
+#nav li {
+	margin: 0 1em 0 1em;
+}
+
+#nav ul {
+	list-style: none;
+}
+
+#nav ul li {
+	float: left;
+}
+
+#outer {
+	position: relative;
+	width: 1180px;
+	margin: 0 auto 0 auto;
+}
+
+#search input.button {
+	margin-left: 1em;
+	border: 0;
+	color: #ffffff;
+	background: #6f2f2f;
+	padding: 9px;
+}
+
+#search input.text {
+	border: solid 1px #ffffff;
+	padding: 8px;
+}
+
+#sidebar1 {
+	width: 252px;
+	float: left;
+	padding: 0;
+}
+
+#sidebar2 {
+	width: 252px;
+	float: right;
+	padding: 0;
+}

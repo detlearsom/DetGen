@@ -1,0 +1,347 @@
+/*
+
+	Design by TEMPLATED
+	http://templated.co
+	Released for free under the Creative Commons Attribution License
+
+	Name       : Neutral Charisma
+	Version    : 1.0
+	Released   : 20130222
+	
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: #f42555;
+	text-decoration: underline;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+body {
+	font-size: 12pt;
+	line-height: 1.75em;
+	font-family: 'Trebuchet MS', sans-serif;
+	background: #0b0f0e url('https://templated.co/items/demos/neutralcharisma/images/bg.jpg');
+	color: #c2c3c3;
+}
+
+br.clear {
+	clear: both;
+}
+
+h1,h2,h3,h4 {
+	text-transform: lowercase;
+	letter-spacing: -1px;
+}
+
+h2,h3,h4 {
+	margin-bottom: 1em;
+	font-family: 'PT Sans Narrow', sans-serif;
+	color: #ffffff;
+	font-size: 1.75em;
+}
+
+img.left {
+	float: left;
+	margin: 5px 20px 20px 0;
+}
+
+img.top {
+	margin: 5px 0 20px 0;
+}
+
+p {
+	margin-bottom: 1.5em;
+}
+
+ul {
+	margin-bottom: 1.5em;
+}
+
+.imageList {
+	list-style: none;
+}
+
+.imageList li {
+	clear: both;
+}
+
+#bg {
+	background: url('https://templated.co/items/demos/neutralcharisma/images/shadow.png') top left repeat-x;
+	padding: 85px 0 85px 0;
+}
+
+#banner {
+	background: #ffffff;
+}
+
+#box1 {
+	width: 530px;
+	overflow: hidden;
+	margin: 0px 0 30px 0;
+}
+
+#box2 {
+	width: 250px;
+	overflow: hidden;
+	float: left;
+}
+
+#box3 {
+	width: 250px;
+	overflow: hidden;
+	margin: 0px 0 0 280px;
+}
+
+#content {
+	width: 530px;
+	margin: 0px 35px 0 290px;
+	padding: 35px;
+	background: #ffffff url('https://templated.co/items/demos/neutralcharisma/images/contentbg.jpg');
+}
+
+#copyright {
+	margin: 35px 0 0 0 ;
+	text-align: center;
+	color: #606060;
+}
+
+#copyright a {
+	color: #808080;
+}
+
+#footer {
+	position: relative;
+	padding: 35px;
+	width: 1110px;
+	background: #56bfc2;
+	color: #d6f0f0;
+}
+
+#footer a {
+	color: #e7f6f6;
+}
+
+#footer h2, #footer h3, #footer h4 {
+	color: #ffffff;
+}
+
+#footer ul {
+	list-style: none;
+}
+
+#footer ul li {
+	padding: 10px 0 10px 0;
+	border-top: dotted 1px #80cfd1;
+}
+
+#footer ul li.first {
+	padding-top: 0;
+	border-top: 0;
+}
+
+#footerContent {
+	width: 820px;
+	float: left;
+}
+
+#footerSidebar {
+	width: 190px;
+	margin: 0px 0 0 920px;
+}
+
+#header {
+	position: relative;
+	padding: 35px;
+	height: 150px;
+}
+
+#logo {
+	text-align: center;
+	position: relative;
+	margin: 39px auto;
+	height: 128px;
+	line-height: 128px;
+}
+
+#logo a {
+	text-decoration: none;
+	color: #ffffff;
+}
+
+#logo h1 {
+	font-size: 3em;
+	font-family: Lobster, cursive;
+}
+
+#main {
+	position: relative;
+	padding: 0px;
+	width: 1180px;
+	color: #3d3d3d;
+}
+
+#main a {
+	color: #242424;
+}
+
+#main h2, #main h3, #main h4 {
+	color: #1c1c1c;
+}
+
+#main ul {
+	list-style: none;
+}
+
+#main ul li {
+	padding: 10px 0 10px 0;
+	border-top: dotted 1px #bfbfbf;
+}
+
+#main ul li.first {
+	padding-top: 0;
+	border-top: 0;
+}
+
+#nav {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1180px;
+	height: 57px;
+	line-height: 57px;
+	margin: 0px 0 0 0;
+	background: #f42555 url('https://templated.co/items/demos/neutralcharisma/images/navbg.jpg');
+	border: solid 1px #EA2E5A;
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-size: 1.2em;
+}
+
+#nav a {
+	text-decoration: none;
+	text-transform: lowercase;
+	color: #ffffff;
+}
+
+#nav ul {
+	list-style: none;
+	margin: 0 auto;
+	width: 1180px;
+	text-align: center;
+}
+
+#nav ul li {
+	display: inline;
+	text-align: center;
+	padding: 0 1.5em 0 1.5em;
+}
+
+#outer {
+	position: relative;
+	width: 1180px;
+	margin: 0 auto;
+}
+
+#search input.button {
+	margin-left: 1em;
+	border: 0px;
+	color: #ffffff;
+	background: #f42555;
+	padding: 6px;
+}
+
+#search input.text {
+	border: dotted 1px #ffffff;
+	padding: 5px;
+}
+
+#sidebar {
+	color: #c4c5c5;
+}
+
+#sidebar a {
+	color: #dddddd;
+}
+
+#sidebar h2, #sidebar h3, #sidebar h4 {
+	color: #ffffff;
+}
+
+#sidebar ul {
+	list-style: none;
+}
+
+#sidebar ul li {
+	padding: 10px 0 10px 0;
+	border-top: dotted 1px #484b4a;
+}
+
+#sidebar ul li.first {
+	padding-top: 0;
+	border-top: 0;
+}
+
+#sidebar1 {
+	width: 190px;
+	float: left;
+	padding: 35px;
+	color: #c4c5c5;
+}
+
+#sidebar1 a {
+	color: #dddddd;
+}
+
+#sidebar1 h2, #sidebar1 h3, #sidebar1 h4 {
+	color: #ffffff;
+}
+
+#sidebar1 ul {
+	list-style: none;
+}
+
+#sidebar1 ul li {
+	padding: 10px 0 10px 0;
+	border-top: dotted 1px #484b4a;
+}
+
+#sidebar1 ul li.first {
+	padding-top: 0;
+	border-top: 0;
+}
+
+#sidebar2 {
+	width: 190px;
+	float: right;
+	padding: 35px;
+	color: #c4c5c5;
+}
+
+#sidebar2 a {
+	color: #dddddd;
+}
+
+#sidebar2 h2, #sidebar2 h3, #sidebar2 h4 {
+	color: #ffffff;
+}
+
+#sidebar2 ul {
+	list-style: none;
+}
+
+#sidebar2 ul li {
+	padding: 10px 0 10px 0;
+	border-top: dotted 1px #484b4a;
+}
+
+#sidebar2 ul li.first {
+	padding-top: 0;
+	border-top: 0;
+}

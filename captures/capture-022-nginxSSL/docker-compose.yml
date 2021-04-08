@@ -1,0 +1,88 @@
+version: '2'
+services:
+  nginx:
+    image: 'nginx'
+    ports:
+      - 8080:443
+      - 8081:80
+    volumes:
+      - $PWD/conf/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - $PWD/conf:/usr/share/nginx/html
+      - $PWD/conf/ssl:/etc/ssl
+    networks:
+      capture:
+        ipv4_address: 172.16.236.15
+
+  wget_80:
+    image: 'detlearsom/wget'
+    command: watch -n 5 wget "http://172.16.236.15" -P /data
+    depends_on:
+      - nginx
+    volumes:
+      - "$PWD/data:/data"
+      - "$PWD/conf/ssl:/etc/ssl"
+    networks:
+      capture:
+        ipv4_address: 172.16.236.38
+
+  wget_443:
+    image: 'detlearsom/wget'
+    command: watch -n 5 wget --ca-certificate=/etc/ssl/nginx.crt "https://172.16.236.15:443" -P /data
+    depends_on:
+      - nginx
+    volumes:
+      - "$PWD/data:/data"
+      - "$PWD/conf/ssl:/etc/ssl"
+    networks:
+      capture:
+        ipv4_address: 172.16.236.40
+
+  tcpdump_nginx:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-022-nginxSSL-server-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:nginx"
+    depends_on:
+      - dummy
+
+  tcpdump_wget_80:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-022-nginxSSL-HTTPclient-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:wget_80"
+    depends_on:
+      - dummy
+
+
+  tcpdump_wget_443:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-022-nginxSSL-HTTPSclient-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:wget_443"
+    depends_on:
+      - dummy
+
+
+  dummy:
+    image: 'nginx'
+    networks:
+      - capture
+    depends_on:
+      - nginx
+      - wget_80
+      - wget_443
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.236.0/24
+        gateway: 172.16.236.1
+
+
+

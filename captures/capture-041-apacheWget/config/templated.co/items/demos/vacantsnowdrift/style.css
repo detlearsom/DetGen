@@ -1,0 +1,345 @@
+/*
+
+	Design by TEMPLATED
+	http://templated.co
+	Released for free under the Creative Commons Attribution License
+
+	Name       : Vacant Snowdrift
+	Version    : 1.0
+	Released   : 20130222
+	
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: #576454;
+	text-decoration: underline;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+body {
+	font-size: 12pt;
+	line-height: 2em;
+	font-family: Trebuchet MS, sans-serif;
+	background: #f1f0f0;
+	color: #393835;
+	text-shadow: 0 1px 0 #ffffff;
+}
+
+br.clear {
+	clear: both;
+}
+
+h1,h2,h3,h4 {
+	text-transform: lowercase;
+	font-weight: normal;
+}
+
+h2,h3,h4 {
+	margin-bottom: 1.25em;
+	font-family: Arvo, serif;
+	color: #000000;
+}
+
+img.left {
+	float: left;
+	margin: 8px 20px 20px 0;
+}
+
+img.top {
+	margin: 8px 0 20px 0;
+}
+
+p {
+	margin-bottom: 1.75em;
+}
+
+ul {
+	margin-bottom: 1.75em;
+}
+
+.imageList {
+	list-style: none;
+}
+
+.imageList li {
+	clear: both;
+}
+
+#bg {
+	background: url('https://templated.co/items/demos/vacantsnowdrift/images/highlight.png') top left repeat-x;
+	padding: 35px 0 65px 0;
+}
+
+#banner {
+	position: relative;
+	padding: 32px;
+	height: 200px;
+	width: 1116px;
+	margin: 0;
+	background: #ffffff;
+}
+
+#box1 {
+	margin: 0 0 24px 0;
+	overflow: hidden;
+}
+
+#box2 {
+	margin: 0 0 24px 0;
+	overflow: hidden;
+}
+
+#box3 {
+	overflow: hidden;
+}
+
+#content {
+	width: 516px;
+	float: right;
+	padding: 28px;
+	background: #ffffff;
+}
+
+#copyright {
+	margin: 34px 0 0 0;
+	text-align: center;
+	color: #909090;
+	text-shadow: 0 1px 0 #ffffff;
+	text-transform: lowercase;
+}
+
+#copyright a {
+	color: #909090;
+}
+
+#footer {
+	position: relative;
+	padding: 28px;
+	margin: 34px 0 0 0;
+	width: 1124px;
+	background: #576454;
+	color: #bcc1bb;
+	text-shadow: 0 1px 0 #273424;
+}
+
+#footer a {
+	color: #ebecea;
+}
+
+#footer h2, #footer h3, #footer h4 {
+	color: #ffffff;
+}
+
+#footer p {
+	margin-bottom: 0;
+}
+
+#footer ul {
+	list-style: none;
+	margin-bottom: 0;
+}
+
+#footer ul li {
+	padding: 8px 0 8px 0;
+	border-top: dotted 1px #707b6e;
+}
+
+#footer ul li.first {
+	padding-top: 0;
+	border-top: 0;
+}
+
+#footerContent {
+	width: 516px;
+	float: right;
+}
+
+#footerSidebar1 {
+	width: 224px;
+	float: left;
+}
+
+#footerSidebar2 {
+	width: 224px;
+	margin: 0 28px 0 304px;
+}
+
+#header {
+	position: relative;
+	padding: 28px;
+	height: 126px;
+	width: 1124px;
+	margin: 0 0 24px 0;
+}
+
+#logo {
+	text-align: center;
+	position: relative;
+	margin: -14px auto;
+	height: 98px;
+	line-height: 98px;
+}
+
+#logo a {
+	text-decoration: none;
+	color: #000000;
+}
+
+#logo h1 {
+	font-size: 3em;
+	font-family: Arvo, serif;
+}
+
+#main {
+	position: relative;
+	padding: 0;
+	margin: 0 0 0 0;
+	width: 1180px;
+	color: #666666;
+}
+
+#main strong {
+	color: #454545;
+}
+
+#main h2, #main h3, #main h4 {
+	color: #1a1a1a;
+}
+
+#main ul {
+	list-style: none;
+}
+
+#main ul li {
+	padding: 8px 0 8px 0;
+	border-top: dotted 1px #d9d9d9;
+}
+
+#main ul li.first {
+	padding-top: 0;
+	border-top: 0;
+}
+
+#nav {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 1180px;
+	height: 56px;
+	line-height: 56px;
+	margin: 0 0 0 0;
+	font-size: 1.25em;
+	font-family: Arvo, serif;
+}
+
+#nav a {
+	text-decoration: none;
+	text-transform: lowercase;
+	color: #1b1b19;
+}
+
+#nav a:hover {
+	text-decoration: underline;
+}
+
+#nav ul {
+	list-style: none;
+	margin: 0 auto;
+	width: 1062px;
+	text-align: center;
+}
+
+#nav ul li {
+	display: inline;
+	text-align: center;
+	padding: 0.5em 1em 0.5em 1em;
+}
+
+#nav ul li a {
+	padding: 0.5em 1em 0.5em 1em;
+}
+
+#nav ul li.active a {
+	background: #576454;
+	color: #ffffff;
+	text-shadow: 0 1px 0 #273424;
+}
+
+#outer {
+	position: relative;
+	width: 1180px;
+	margin: 0 auto 0 auto;
+}
+
+#search input.button {
+	margin-left: 1em;
+	border: 0;
+	color: #ffffff;
+	background: #576454;
+	padding: 5px;
+}
+
+#search input.text {
+	border: dotted 1px #000000;
+	padding: 4px;
+}
+
+#sidebar1 {
+	width: 224px;
+	float: left;
+	padding: 28px;
+	color: #5c5a54;
+	text-shadow: 0 1px 0 #ffffff;
+}
+
+#sidebar1 h2, #sidebar1 h3, #sidebar1 h4 {
+	color: #000000;
+}
+
+#sidebar1 ul {
+	list-style: none;
+}
+
+#sidebar1 ul li {
+	padding: 8px 0 8px 0;
+	border-top: dotted 1px #c3bfb3;
+}
+
+#sidebar1 ul li.first {
+	padding-top: 0;
+	border-top: 0;
+}
+
+#sidebar2 {
+	width: 224px;
+	margin: 0 28px 0 304px;
+	padding: 28px;
+	color: #5c5a54;
+	text-shadow: 0 1px 0 #ffffff;
+}
+
+#sidebar2 h2, #sidebar2 h3, #sidebar2 h4 {
+	color: #000000;
+}
+
+#sidebar2 ul {
+	list-style: none;
+}
+
+#sidebar2 ul li {
+	padding: 8px 0 8px 0;
+	border-top: dotted 1px #c3bfb3;
+}
+
+#sidebar2 ul li.first {
+	padding-top: 0;
+	border-top: 0;
+}
