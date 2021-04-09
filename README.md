@@ -33,8 +33,34 @@
 6. Once done, find your generated traffic in the directory Generated_data
 
 
-### Adding additional scenarios
-TBC.
+### Release 1.0.0
+This release contains all scenarios that are currently in a well-maintained state, namely:
+
+1. HTTP
+2. FTP
+3. SSH
+4. File-Sync
+5. BitTorrent
+6. SQL
+7. IRC
+8. NTP
+9. Music and Video streaming
+
+
+and the following attack scenarios:
+
+1. SQL-injections
+2. Heartbleed
+3. XXE attacks
+
+We are currently working to add a number of additional scenarios to this public release. A list of implemented scenarios can be found in the arXiv preprint "DetGen: Traffic generation using containerization for machine learning". If you need access to any of these scenarios, feel free to get in contact.
+
+Please cite the following paper when using DetGen in your work:
+
+Clausen, Henry, Robert Flood, and David Aspinall. "Traffic generation using containerization for machine learning." arXiv preprint arXiv:2011.06350 (2020).
+
+
+
 
 
 ### Important notes/bugs and fixes
