@@ -1,4 +1,4 @@
-# detgen: (Deterministic) traffic generation and capture for Detlearsom
+# DetGen: Deterministic traffic generation and capture for Detlearsom
 
 
 ## Set-up
