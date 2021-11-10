@@ -1,5 +1,8 @@
 # DetGen: Deterministic traffic generation and capture for Detlearsom
 
+## Datasets
+
+For the **DetGen-IDS** dataset and the **Stepping-stone dataset**, please look for instructions [here](Datasets.md)
 
 ## Set-up
 
