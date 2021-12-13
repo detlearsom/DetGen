@@ -1,8 +1,16 @@
-# DetGen: Deterministic traffic generation and capture for Detlearsom
+# DetGen: Deterministic traffic generation and capture
 
-## Datasets
+## What is this?
 
-For the **DetGen-IDS** dataset and the **Stepping-stone dataset**, please look for instructions [here](Datasets.md)
+DetGen is a set of scripts and conventions for capturing network traffic and logging information from self-contained
+"scenarios" which are run inside Docker containers.  The scenarios can be easily re-run to regenerate traffic with
+or without variation.  In contrast to capturing traffic from general VMs or actual workstations, the captures are 
+repeatable and more determinstic.  
+
+## Datasets generated for Detlearsom
+
+For the **DetGen-IDS** dataset and the **Stepping-stone dataset** used for publications in the
+[Detlearsom project](https://detlearsom.github.io/) , please look for instructions [here](Datasets.md)
 
 ## Set-up
 
@@ -37,6 +45,7 @@ For the **DetGen-IDS** dataset and the **Stepping-stone dataset**, please look f
 
 
 ### Release 1.0.0
+
 This release contains all scenarios that are currently in a well-maintained state, namely:
 
 1. HTTP
@@ -67,7 +76,8 @@ Clausen, Henry, Robert Flood, and David Aspinall. "Traffic generation using cont
 
 
 ### Important notes/bugs and fixes
-* In some cases (especially on a new Docker installation) using docker-compose gives a Python encoding error. This is (I believe) due to some Python 2/3 differences. This happens when an image is not present on the system and docker-compose is trying to pull it. Those are usually offical builds. If this happens the solution is to run a container and then remove it: `docker run -d image_name:version` and then `docker kill container_id` and `docker rm container_id`.
+
+* In some cases (especially on a new Docker installation) using docker-compose gives a Python encoding error. This is (we believe) due to some Python 2/3 differences. This happens when an image is not present on the system and docker-compose is trying to pull it. Those are usually offical builds. If this happens the solution is to run a container and then remove it: `docker run -d image_name:version` and then `docker kill container_id` and `docker rm container_id`.
 * Another issue is container startup (most commonly using the script `capture.sh`). What happens is, sometimes a container fails to start properly and then a tcpdump container tries to latch on to the other container's network stack. This ends with an error message. The solution to this is to run 2-3 times `docker-compose up -d` manually from within the folder (don't forget to `docker-compose down` after the error comes up or after you've seen that it works). After that try running the shell script again 1-2 times, which should work. This is solved for containers 20, 21, 22, 40, 41 and 42. The solution is to add a dummy container that depends on the server/main conainers (like nginx and siege) and then make the tcpdump containers depends on the dummy container. This gives enough time for the main containers to initialize properly before tcpdump latches on.
 
 
