@@ -32,12 +32,12 @@ For the **DetGen-IDS** dataset and the **Stepping-stone dataset** used for publi
 2. Run `sudo ./GUI_files/GUI.sh`
 3. In the dialogue-field, select the particular traffic scenario, either benign or attack, for which you want to generate traffic 
 
-![Example dialogue window to select benign scenarios](https://github.com/detlearsom/detgen/blob/master/docs/images/Dialogue1.png)
+![Example dialogue window to select benign scenarios](docs/images/Dialogue1.png)
 
 4. Select the particular activity as well as the corresponding parameters for file-size, caching, congestion etc. You can also choose to randomise them.
 
-![Example dialogue window to select transfer file parameters](https://github.com/detlearsom/detgen/blob/master/docs/images/Dialogue2.png)
-  |  ![Example dialogue window to select congestion parameters](https://github.com/detlearsom/detgen/blob/master/docs/images/Dialogue3.png)
+![Example dialogue window to select transfer file parameters](docs/images/Dialogue2.png)
+  |  ![Example dialogue window to select congestion parameters](docs/images/Dialogue3.png)
 
 
 5. Select how many repetitions you want to run.
