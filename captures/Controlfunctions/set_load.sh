@@ -2,6 +2,9 @@
 
 IFS=$OLDIFS
 
+# if not set, set LoadRandomisation to default = 1
+[ -z "$LoadRandomisation" ] && LoadRandomisation=1
+
 function getexpRV(){
 LAMBDA="$1"
 Nrand=32767
@@ -19,7 +22,7 @@ fi
 
 #ps
 echo "Setting up host load with ${Nworkers} hogs"
-stress -c ${Nworkers} --timeout 200s &
+stress --cpu ${Nworkers} --timeout 200s &
 export pid_stress=$!
 #echo $pid_stress
 

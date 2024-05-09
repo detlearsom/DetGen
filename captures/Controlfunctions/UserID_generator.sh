@@ -1,4 +1,7 @@
-#!/bin/bash                                                                                                                                                                                                                                                                       
+#!/bin/bash  
+                                                                                                                                                                                                     
+# if not set, set PWRandomisation to default = 1
+[ -z "$PWRandomisation" ] && PWRandomisation=1
 
 function getexpRV(){
 LAMBDA="$1"

@@ -1,5 +1,6 @@
-#!/bin/bash                                                                                                                                                                                                                                                                       
+#!/bin/bash       
 
+[ -z "$FileRandomisation" ] && FileRandomisation=1
 
 function getexpRV(){
 LAMBDA="$1"
@@ -40,4 +41,3 @@ export FILENAME=$(cat /dev/urandom | tr -dc 'a-z' | fold -w ${FNLength} | head -
 echo "Filename:${FILENAME}"
 export FILE=${FILENAME}
 echo $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w ${FLength} | head -n 1) >> "dataToShare/${FILENAME}"
-
