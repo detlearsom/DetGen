@@ -1,0 +1,2 @@
+2024-03-25T17:46:17.640209+00:00 b874a35c00e0 apache-error [Mon Mar 25 17:46:19.580836 2024] [core:error] [pid 9:tid 140240200013568] (13)Permission denied: [client 172.16.27.3:48240] AH00132: file permissions deny server access: /etc/shadow
+2024-03-25T17:46:17.640001+00:00 b874a35c00e0 apache-access 172.16.27.3 48240 - [25/Mar/2024:17:46:19 +0000] "GET //icons/.%%32%65/.%%32%65/.%%32%65/.%%32%65/etc/shadow HTTP/1.1" 403 199 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0"

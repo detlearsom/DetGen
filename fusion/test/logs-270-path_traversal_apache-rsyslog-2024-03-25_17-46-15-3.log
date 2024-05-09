@@ -1,0 +1,2 @@
+2024-03-25T17:47:01.343618+00:00 deac88a3b249 apache-access 172.16.27.3 50894 - [25/Mar/2024:17:47:04 +0000] "GET //icons/.%%32%65/.%%32%65/.%%32%65/.%%32%65/etc/shadow HTTP/1.1" 403 199 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0"
+2024-03-25T17:47:01.343633+00:00 deac88a3b249 apache-error [Mon Mar 25 17:47:04.002018 2024] [core:error] [pid 11:tid 140689905264384] (13)Permission denied: [client 172.16.27.3:50894] AH00132: file permissions deny server access: /etc/shadow
