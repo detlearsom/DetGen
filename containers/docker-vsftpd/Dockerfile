@@ -8,6 +8,9 @@ LABEL Description="vsftpd Docker image based on Centos 7. Supports passive mode 
 RUN yum -y update && yum clean all
 RUN yum install -y \
 	vsftpd \
+	rsyslog \
+	nano \
+	iproute2 \
 	db4-utils \
 	db4 && yum clean all
 
@@ -21,9 +24,11 @@ ENV LOG_STDOUT **Boolean**
 COPY vsftpd.conf /etc/vsftpd/
 COPY vsftpd_virtual /etc/pam.d/
 COPY run-vsftpd.sh /usr/sbin/
+COPY rsyslog.conf /etc/rsyslog.conf
 
 RUN chmod +x /usr/sbin/run-vsftpd.sh
 RUN mkdir -p /home/vsftpd/
+RUN mkdir -p /var/log/vsftpd
 RUN chown -R ftp:ftp /home/vsftpd/
 
 VOLUME /home/vsftpd
