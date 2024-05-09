@@ -1,0 +1,81 @@
+# Anthos:
+# Modified from https://github.com/detlearsom/DetGen/tree/main
+
+version: '3'
+
+services:
+  rsyslog:
+    image: detlearsom/rsyslog
+    hostname: rsyslog
+    ports:
+      - 514:514
+      - 514:514/udp
+    volumes:
+      - $PWD/rsyslog.conf:/etc/rsyslog.conf
+      - $PWD/logs:/var/log/rsyslog
+    cap_add:
+      - SYSLOG
+    networks:
+      capture:
+        ipv4_address: 172.16.233.2
+
+  apache:
+    image: 'detlearsom/heartbleed'
+    volumes:
+      - '$PWD/website_data:/var/www'
+      - '$PWD/config/apache2.conf:/etc/apache2/apache2.conf'
+      - '$PWD/config/ssl.load:/etc/apache2/mods-available/ssl.load'
+      - '$PWD/config/default-ssl.conf:/etc/apache2/sites-enabled/default-ssl.conf'
+      - '$PWD/config/ssl/apache-selfsigned.crt:/etc/apache2/ssl/apache.crt'
+      - '$PWD/config/ssl/apache-selfsigned.key:/etc/apache2/ssl/apache.key'
+      - '$PWD/config/rsyslog.conf:/etc/rsyslog.conf'
+      - '$PWD/logs:/var/log/apache2'
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      capture:
+        ipv4_address: 172.16.233.15
+    depends_on:
+      - rsyslog
+
+
+  msf:
+    image: 'detlearsom/msfconsole'
+    command: tail -f /dev/null
+     # - msfconsole -r /var/lib/msf_script.rc
+    volumes:
+      - '$PWD/msf_share:/var/lib'
+    networks:
+      capture:
+        ipv4_address: 172.16.233.20
+    depends_on:
+      - tcpdump_apache
+
+
+  tcpdump_apache:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-130-heartbleed-server-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:apache"
+    depends_on:
+      - apache
+
+  tcpdump_msf:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-130-heartbleed-client-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:msf"
+    depends_on:
+      - msf
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.233.0/24
+        gateway: 172.16.233.1
