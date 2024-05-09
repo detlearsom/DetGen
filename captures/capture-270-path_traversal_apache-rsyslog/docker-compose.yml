@@ -1,0 +1,68 @@
+version: '3'
+
+services:
+  rsyslog:
+    image: detlearsom/rsyslog
+    hostname: rsyslog
+    ports:
+      - 514:514
+      - 514:514/udp
+    volumes:
+      - $PWD/rsyslog-config/rsyslog.conf:/etc/rsyslog.conf
+      - $PWD/logs:/var/log/rsyslog
+    cap_add:
+      - SYSLOG
+    networks:
+      capture:
+        ipv4_address: 172.16.27.2
+
+  # vulnerable to path traversal and remote code execution
+  apache:
+    image: 'detlearsom/apache_vuln_pt_rce'
+    ports:
+      - "80:80"
+    volumes: 
+      - '$PWD/httpd.conf:/conf/httpd.conf'
+    networks:
+      capture:
+        ipv4_address: 172.16.27.20
+    depends_on:
+      - rsyslog
+
+
+  attacker:
+    image: 'detlearsom/python-requests'
+    command: tail -f /dev/null
+    volumes:
+      - '$PWD/attacker-share:/usr/share/scripts'
+    networks:
+      - capture
+    depends_on:
+      - tcpdump_apache
+
+  tcpdump_attacker:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-270-path_traversal_apache-attacker-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:attacker"
+    depends_on:
+      - attacker
+
+  tcpdump_apache:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-270-path_traversal_apache-server-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:apache"
+    depends_on:
+      - apache
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.27.0/24
+        gateway: 172.16.27.1
