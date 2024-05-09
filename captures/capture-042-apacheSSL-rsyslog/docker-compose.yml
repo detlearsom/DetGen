@@ -1,0 +1,110 @@
+# Anthos:
+# Modified from https://github.com/detlearsom/DetGen/tree/main
+
+version: '3'
+
+services:
+  rsyslog:
+    image: detlearsom/rsyslog
+    hostname: rsyslog
+    ports:
+      - 514:514
+      - 514:514/udp
+    volumes:
+      - $PWD/rsyslog.conf:/etc/rsyslog.conf
+      - $PWD/logs:/var/log/rsyslog
+    cap_add:
+      - SYSLOG
+    networks:
+      capture:
+        ipv4_address: 172.16.239.2
+
+  apache:
+    image: 'detlearsom/httpd-ssl'
+    volumes:
+      - '$PWD/config/httpd.conf:/usr/local/apache2/conf/httpd.conf'
+      - '$PWD/config/httpd-ssl.conf:/usr/local/apache2/conf/extra/httpd-ssl.conf'
+      - '$PWD/config/ssl:/usr/local/apache2/conf/ssl'
+      - '$PWD/sslkeylog:/usr/local/apache2/sslkeylog'
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - SSLKEYLOGFILE=/usr/local/apache2/sslkeylog/sslkeylogfile.log
+    # deploy:  # Add this section to limit the 'wget_443's resource usage
+    #   resources:
+    #     limits:
+    #       cpus: '2'
+    #       memory: 1G 
+    networks:
+      capture:
+        ipv4_address: 172.16.239.15
+    depends_on:
+      - rsyslog
+
+  wget_80:
+    image: 'detlearsom/wget'
+    command: tail -f /dev/null # watch -n 5 wget -P /data/downloaded "http://172.16.239.15"
+    volumes:
+      - "$PWD/data:/data"
+      - "$PWD/config/ssl:/etc/ssl"
+    networks:
+      capture:
+        ipv4_address: 172.16.239.38
+    depends_on:
+      - tcpdump_apache
+
+  wget_443:
+    image: 'detlearsom/wget'
+    command: tail -f /dev/null # watch -n 5 wget --ca-certificate=/etc/ssl/server.crt -P /data/downloaded "https://172.16.239.15:443"
+    volumes:
+      - "$PWD/data:/data"
+      - "$PWD/config/ssl:/etc/ssl"
+    # deploy:  
+    #   resources:
+    #     limits:
+    #       cpus: '0.50'
+    #       memory: 0.5G 
+    networks:
+      capture:
+        ipv4_address: 172.16.239.40
+    depends_on:
+      - tcpdump_apache
+
+  tcpdump_apache:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -s0 -B 8192 -w "/data/dump-042-apachessl-rsyslog-server-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:apache"
+    depends_on:
+      - apache
+
+  tcpdump_wget_80:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-042-apachessl-rsyslog-HTTPclient-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:wget_80"
+    depends_on:
+      - wget_80
+
+
+  tcpdump_wget_443:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-042-apachessl-rsyslog-HTTPSclient-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:wget_443"
+    depends_on:
+      - wget_443
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.239.0/24
+        gateway: 172.16.239.1
+

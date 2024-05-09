@@ -1,0 +1,62 @@
+# Anthos:
+# Modified from https://github.com/detlearsom/DetGen/tree/main
+
+version: '3'
+
+services:
+  rsyslog:
+      image: detlearsom/rsyslog
+      hostname: rsyslog
+      ports:
+        - 514:514
+        - 514:514/udp
+      volumes:
+        - $PWD/rsyslog.conf:/etc/rsyslog.conf
+        - $PWD/logs:/var/log/rsyslog
+      cap_add:
+        - SYSLOG
+      networks:
+        - capture
+          
+  apache:
+    image: 'detlearsom/httpd'
+    volumes:
+      - '$PWD/httpd_logs:/var/log/httpd'    
+      - '$PWD/config:/usr/local/apache2/htdocs'
+      - '$PWD/my-httpd.conf:/usr/local/apache2/conf/httpd.conf'
+    ports:
+      - 80:80
+    networks:
+      - capture
+    depends_on:
+      - rsyslog
+
+  siege:
+    image: 'detlearsom/siege'
+    command: tail -f /dev/null #-c${CONCURRENT_THREADS} -r${REQUESTS} -v http://apache
+    networks:
+      - capture
+    depends_on:
+      - tcpdump_apache
+
+  tcpdump_apache:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-040-apache-server-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:apache"
+    depends_on:
+      - apache
+
+  tcpdump_siege:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-040-apache-client-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:siege"
+    depends_on:
+      - siege
+
+networks:
+  capture:
+    driver: "bridge"
