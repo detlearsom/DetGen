@@ -31,7 +31,7 @@ For some Datsets used for publications in the
 
 ## Release History
 
-### Release 1.0.0 (December 2019)
+### Release 1.0.0 (April 2021)
 
 This release contains all scenarios that are in a well-maintained state, namely:
 
