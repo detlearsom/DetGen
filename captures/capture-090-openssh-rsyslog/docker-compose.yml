@@ -1,0 +1,83 @@
+# Anthos:
+# Modified from https://github.com/detlearsom/DetGen/tree/main
+
+version: '3'
+
+services:
+  rsyslog:
+    image: detlearsom/rsyslog
+    hostname: rsyslog
+    ports:
+      - 514:514
+      - 514:514/udp
+    volumes:
+      - $PWD/rsyslog.conf:/etc/rsyslog.conf
+      - $PWD/logs:/var/log/rsyslog
+    cap_add:
+      - SYSLOG
+    networks:
+      - capture
+
+  sshd:
+    image: 'detlearsom/sshd'
+    networks:
+      capture:
+        ipv4_address: 172.16.238.5
+    ports:
+      - "1222:22"
+    volumes:
+      - $PWD/.ssh:/root/.ssh
+      - '$PWD/dataToShare:/dataToShare:ro'
+      - $PWD/receive:/receive
+      - $PWD/config/sshd_config:/etc/ssh/sshd_config
+      - $PWD/config/ssh_config:/etc/ssh/ssh_config
+      - $PWD/config/rsyslog.conf:/etc/rsyslog.conf
+
+  ssh_client:
+    image: 'detlearsom/sshd'
+    volumes:
+      - $PWD/.ssh:/root/.ssh
+      - $PWD/scripts:/scripts:ro
+      - $PWD/receive:/receive
+      - $PWD/dataToShare:/dataToShare:ro
+    networks:
+      capture:
+        ipv4_address: 172.16.238.20
+    privileged: true
+    depends_on:
+      - sshd
+    command: /scripts/ssh-script$SCENARIO.sh
+
+  tcpdump_sshd:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-090-sshd-server-sc${SCENARIO}-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    depends_on:
+      - dummy
+    network_mode: "service:sshd"
+
+  tcpdump_client:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-090-sshd-client-sc${SCENARIO}-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    depends_on:
+      - dummy
+    network_mode: "service:ssh_client"
+
+  dummy:
+    image: 'ubuntu'
+    depends_on:
+      - ssh_client
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+        gateway: 172.16.238.1
+
+

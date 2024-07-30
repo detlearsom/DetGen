@@ -1,0 +1,64 @@
+# Anthos:
+# Modified from https://github.com/detlearsom/DetGen/tree/main
+
+version: '3'
+services:
+
+  rsyslog:
+    image: detlearsom/rsyslog
+    hostname: rsyslog
+    ports:
+      - 514:514
+      - 514:514/udp
+    volumes:
+      - $PWD/rsyslog.conf:/etc/rsyslog.conf
+      - $PWD/logs:/var/log/rsyslog
+    cap_add:
+      - SYSLOG
+    networks:
+      - capture
+
+  synclient1:
+    image: 'detlearsom/syncthing'
+    ports:
+      - "3384:8384"
+    volumes:
+      - '${PWD}/client1/conf:/config'
+    networks:
+      - capture
+    depends_on:
+      - rsyslog
+
+  synclient2:
+    image: 'detlearsom/syncthing'
+    ports:
+      - "3385:8384"
+    volumes:
+      - '${PWD}/client2/conf:/config'
+    networks:
+      - capture
+    depends_on:
+     - tcpdump_syncthing
+      
+  tcpdump_syncthing:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-080-syncthing-${CAPTURETIME}-sc${SCENARIO}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:synclient1"
+    depends_on:
+      - synclient1
+
+  tcpdump_syncthing2:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-080-syncthing2-${CAPTURETIME}-sc${SCENARIO}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:synclient2"
+    depends_on:
+      - synclient2
+
+networks:
+  capture:
+    driver: "bridge"
+      

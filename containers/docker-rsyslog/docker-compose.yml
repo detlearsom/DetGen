@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  rsyslog:
+    image: detlearsom/rsyslog
+    hostname: rsyslog
+    container_name: rsyslog
+    ports:
+      - 514:514
+      - 514:514/udp
+    volumes:
+      - ./rsyslog.conf:/etc/rsyslog.conf
+      - ./logs:/var/log/rsyslog
+    cap_add:
+      - SYSLOG
+

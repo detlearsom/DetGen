@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+
+# Apache gets grumpy about PID files pre-existing
+rm -f /run/apache2/apache2.pid
+
+mkdir -p /var/log/apache2
+
+touch /var/log/apache2/access.log
+touch /var/log/apache2/error.log
+touch /var/log/apache2/php-errors.log
+
+#tail -f /var/log/apache2/access.log | logger -n rsyslog -u /tmp/ignored -P 514 -t apache-access -p local6.info &
+#tail -f /var/log/apache2/error.log | logger -n rsyslog -u /tmp/ignored -P 514 -t apache-error -p local6.info &
+#tail -f /var/log/apache2/php-errors.log | logger -n rsyslog -u /tmp/ignored -P 514 -t php-error -p local6.info &
+
+
+exec /usr/sbin/apache2ctl -DFOREGROUND

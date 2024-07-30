@@ -1,0 +1,11 @@
+#!/bin/bash
+
+NAME=${PWD##*docker-}
+IMAGE_NAME=detlearsom/${NAME}
+
+set -x
+if [ "${1}" = "bash" ]; then
+    docker run --rm -v ${PWD}:/work -t -i --entrypoint="/bin/bash" ${IMAGE_NAME}
+else
+    docker run --rm -v ${PWD}:/work -t ${IMAGE_NAME} $@
+fi

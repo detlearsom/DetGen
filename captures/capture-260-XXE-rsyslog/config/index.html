@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Register Today</title>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+<script type="text/javascript">
+function XMLFunction(){
+    var xml = '' +
+        '<?xml version="1.0" encoding="UTF-8"?>' +
+        '<root>' +
+        '<name>' + $('#name').val() + '</name>' +
+        '<tel>' + $('#tel').val() + '</tel>' +
+        '<email>' + $('#email').val() + '</email>' +
+        '</root>';
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if(xmlhttp.readyState == 4){
+            console.log(xmlhttp.readyState);
+            console.log(xmlhttp.responseText);
+            document.getElementById('errorMessage').innerHTML = xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("POST","process.php",true);
+    xmlhttp.send(xml);
+};
+</script>
+
+
+
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <style type="text/css">
+        body{ font: 14px sans-serif; }
+        .wrapper{ width: 350px; padding: 20px; }
+    </style>
+</head>
+<body>
+<center>
+    <br/>
+    <img src='img/logo.png'>
+    <br/>
+    <h2><i>Subscribe to my newsletter!</i></h2>
+    <div id="registration">
+        <div id="RegisterUserForm">
+            <fieldset>
+                <p>
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" class="text"
+                value="" />
+                </p>
+
+                <p>
+                <label for="tel">Phone Number</label>
+                <input id="tel" name="tel" type="tel" class="text" value=""
+                />
+                </p>
+
+                <p>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" class="text"
+                value="" />
+                </p>
+
+
+                <p>
+                <button id="registerNew"
+                    onclick="XMLFunction()">Register</button>
+                </p>
+            </fieldset>
+        </div>
+    </div>
+    <div id="errorMessage" color="red">
+    </div>
+</center>
+</body>
+</html>

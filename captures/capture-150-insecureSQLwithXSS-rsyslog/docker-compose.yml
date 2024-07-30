@@ -1,0 +1,103 @@
+# Anthos:
+# Modified from https://github.com/detlearsom/DetGen/tree/main
+
+version: '3'
+
+services:
+  rsyslog:
+    image: detlearsom/rsyslog
+    hostname: rsyslog
+    ports:
+      - 514:514
+      - 514:514/udp
+    volumes:
+      - $PWD/rsyslog.conf:/etc/rsyslog.conf
+      - $PWD/logs:/var/log/rsyslog
+    cap_add:
+      - SYSLOG
+    networks:
+      capture:
+        ipv4_address: 172.16.230.2
+
+  sql:
+    image: 'detlearsom/mysql'
+    ports:
+      - '3306'
+    volumes: 
+      - $PWD/sql-share:/home/share/
+      - $PWD/sql_settings/my.cnf:/etc/my.cnf
+      - $PWD/log/sql.log:/var/log/sql.log
+    networks:
+      capture:
+        ipv4_address: 172.16.230.22  
+    depends_on:
+      - rsyslog 
+  
+  apache:
+    image: 'detlearsom/php'
+    volumes:
+       - $PWD/config:/var/www/html
+       - $PWD/apache-share/php.ini:/usr/local/etc/php/php.ini
+       - $PWD/log/access.log:/var/log/apache2/access.log
+       - $PWD/log/error.log:/var/log/apache2/error.log
+       - $PWD/log/php_errors.log:/var/log/apache2/php_errors.log
+    ports:
+      - "80:80"
+    networks:
+      capture:
+        ipv4_address: 172.16.230.20
+    depends_on:
+      - tcpdump_sql
+
+  attacker:
+    image: 'detlearsom/python-requests'
+    command: tail -f /dev/null
+    volumes:
+      - '$PWD/attacker-share:/usr/share/scripts'
+    networks:
+      - capture
+    depends_on:
+      - tcpdump_apache
+
+#######################################################################################################
+#######################################################################################################
+
+  tcpdump_sql:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-150-sql-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:sql"
+    depends_on:
+      - sql
+
+  tcpdump_apache:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-150-apache-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:apache"
+    depends_on:
+      - apache
+
+
+  tcpdump_attacker:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-150-attacker-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:attacker"
+    depends_on:
+      - attacker
+
+#######################################################################################################
+#######################################################################################################
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.230.0/24
+        gateway: 172.16.230.1
