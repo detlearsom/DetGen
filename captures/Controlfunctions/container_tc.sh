@@ -41,6 +41,9 @@ fi
 
 #echo ${ContainerIDS[@]}
 
+# if not set, set CongestRandomisation to default = 1
+[ -z "$CongestRandomisation" ] && CongestRandomisation=1
+
 function getexpRV(){
 LAMBDA="$1"
 Nrand=32767
@@ -57,14 +60,16 @@ if [[ ${CongestRandomisation} == "1" ]]; then
     	SLat=$(getexpRV 50)
     	Loss=$(getexpRV 0.1)
    	Corrupt=$(getexpRV 0.1)
-
+   	
+#   	echo "Debug: MLat=$MLat, SLat=$SLat, Loss=$Loss, Corrupt=$Corrupt"
 fi
 
 round()
 {
 echo $(printf %.$2f $(echo "scale=$2;(((10^$2)*$1)+0.5)/(10^$2)" | bc))
 };
-                                                                                                                                                                                                              function get_container_veth() {
+
+function get_container_veth() {
   # Get the process ID for the container named ${CONTAINER}:
   VAR="$(docker ps | grep "${ContainerID}")"
   VAR2="${VAR:0:8}"
@@ -96,14 +101,13 @@ echo "Applying Congestion to Container $ContainerID"
 veth_full=$(get_container_veth $ContainerID)
 
 veth=${veth_full%@*}
-
-tc qdisc replace dev $veth root netem delay "$MLat"ms "$SLat"ms distribution pareto loss $Loss% corrupt $Corruption%
+#echo "Debug: MLat=$MLat, SLat=$SLat, Loss=$Loss, Corrupt=$Corrupt"
+tc qdisc replace dev $veth root netem delay "$MLat"ms "$SLat"ms distribution pareto loss $Loss% corrupt $Corrupt%
 
 #tc qdisc add dev $veth root netem loss $Loss%
 
-#tc qdisc add dev $veth root netem corrupt $Corruption%
+#tc qdisc add dev $veth root netem corrupt $Corrupt%
 
 done
 
 echo "Gongestion applied"
-
