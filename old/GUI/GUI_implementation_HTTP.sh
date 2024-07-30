@@ -29,7 +29,7 @@ if [[ $Scenario == "${Scenarios[2]}" ]]; then
 fi
 
 
-. GUI_files/GUI_congest.sh
+. GUI/GUI_congest.sh
 
 echo $MLat
 echo $Randomisation

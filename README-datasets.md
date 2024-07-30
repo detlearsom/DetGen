@@ -15,6 +15,5 @@ This dataset is further described in the following paper:
 
 Henry Clausen, Michael Gibson, David Aspinall, "Evading stepping-stone detection with enough chaff", Conference on Network and System Security, November 2020
 
-
 Both datasets are currently being uploaded to our [**data repository**](https://groups.inf.ed.ac.uk/security/detgen/), where they will be available to other researchers. 
 

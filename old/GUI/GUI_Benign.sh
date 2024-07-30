@@ -12,7 +12,7 @@ Scenario=$(
 )		
 
 if [[ $Scenario == "${Scenarios[1]}" ]]; then
-	. GUI_files/GUI_HTTP.sh
+	. GUI/GUI_HTTP.sh
 fi
 
 if [[ $Scenario == "${Scenarios[2]}" ]]; then

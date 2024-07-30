@@ -15,20 +15,20 @@ Duration=30
 #fi
 
 if [[ ${MalBen} == "${Benn[1]}" ]]; then
-	. GUI_files/GUI_Mal.sh
+	. GUI/GUI_Mal.sh
 	
 fi
 
 
 if [[ ${MalBen} == "${Benn[0]}" ]]; then
-. GUI_files/GUI_Benign.sh
+. GUI/GUI_Benign.sh
 fi
 
-. GUI_files/GUI_cred.sh
-. GUI_files/GUI_file.sh
-. GUI_files/GUI_congest.sh
-. GUI_files/GUI_load.sh
-. GUI_files/GUI_repeat.sh
+. GUI/GUI_cred.sh
+. GUI/GUI_file.sh
+. GUI/GUI_congest.sh
+. GUI/GUI_load.sh
+. GUI/GUI_repeat.sh
 
 ###############################
 # Execution ###################
