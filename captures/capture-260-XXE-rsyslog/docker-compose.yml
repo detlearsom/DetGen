@@ -1,0 +1,75 @@
+# Anthos:
+# Modified from https://github.com/detlearsom/DetGen/tree/main
+
+version: '3'
+
+services:
+  rsyslog:
+    image: detlearsom/rsyslog
+    hostname: rsyslog
+    ports:
+      - 514:514
+      - 514:514/udp
+    volumes:
+      - $PWD/rsyslog.conf:/etc/rsyslog.conf
+      - $PWD/logs:/var/log/rsyslog
+    cap_add:
+      - SYSLOG
+    networks:
+      capture:
+        ipv4_address: 172.16.238.2
+
+  apache:
+    image: 'detlearsom/xxe'
+    volumes:
+       - '$PWD/config:/var/www/html'
+       - '$PWD/apache-config/apache2.conf:/etc/apache2/apache2.conf'
+       - '$PWD/apache-config/000-default.conf:/etc/apache2/sites-enabled/000-default.conf'
+       - '$PWD/apache-config/php.ini:/etc/php5/apache2/php.ini'
+       - '$PWD/logs:/var/log/apache2'
+    ports:
+      - "80:80"
+    networks:
+      capture:
+        ipv4_address: 172.16.238.20
+    depends_on:
+      - rsyslog
+
+
+  attacker:
+    image: 'detlearsom/python-requests'
+#    command: python /usr/share/scripts/attack$SCENARIO.py
+    command: tail -f /dev/null
+    volumes:
+      - '$PWD/attacker-share:/usr/share/scripts'
+    networks:
+      - capture
+    depends_on:
+      - tcpdump_apache
+
+  tcpdump_attacker:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-260-xxe-attacker-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:attacker"
+    depends_on:
+      - attacker
+
+  tcpdump_apache:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-260-xxe-server-${CAPTURETIME}-$REPNUM.pcap"
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:apache"
+    depends_on:
+      - apache
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+        gateway: 172.16.238.1

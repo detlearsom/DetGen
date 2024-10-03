@@ -1,0 +1,78 @@
+# Anthos:
+# Modified from https://github.com/detlearsom/DetGen/tree/main
+
+version: '3'
+
+services:
+  rsyslog:
+    image: detlearsom/rsyslog
+    hostname: rsyslog
+    ports:
+      - 514:514
+      - 514:514/udp
+    volumes:
+      - $PWD/rsyslog.conf:/etc/rsyslog.conf
+      - $PWD/logs:/var/log/rsyslog
+    cap_add:
+      - SYSLOG
+    networks:
+      capture:
+        ipv4_address: 172.16.238.2
+
+  vsftpd:
+    image: 'detlearsom/vsftpd'
+    networks:
+      capture:
+        ipv4_address: 172.16.238.15
+    volumes:
+      - '$PWD/users:/home/vsftpd'
+    command: "/usr/sbin/run-vsftpd.sh"
+    environment:
+      - FTP_USER=$User
+      - FTP_PASS=$Password
+
+  ftp-client:
+    image: 'detlearsom/ftp-client'
+    volumes:
+      - $PWD/dataToShare:/dataToShare:ro
+      - $PWD/receive:/usr/src/ftp
+      - $PWD/scripts:/usr/src/scripts:ro
+    command: tail -f /dev/null
+    environment:
+      - SCENARIO=$SCENARIO
+      - User=$User
+      - Password=$Password
+      - FILENAME=$FILENAME
+    networks:
+      capture:
+        ipv4_address: 172.16.238.20
+    depends_on:
+      - tcpdump_vsftpd 
+
+  tcpdump_vsftpd:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-050-vsftpd-server-${CAPTURETIME}-sc${SCENARIO}-${REPNUM}.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:vsftpd"
+    depends_on:
+      - vsftpd
+
+  tcpdump_ftp-client:
+    image: 'detlearsom/tcpdump'
+    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-050-vsftpd-client-${CAPTURETIME}-sc${SCENARIO}-$REPNUM.pcap"
+    volumes:
+      - '${DATADIR}:/data'
+    network_mode: "service:ftp-client"
+    depends_on:
+      - ftp-client
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+        gateway: 172.16.238.1
+
