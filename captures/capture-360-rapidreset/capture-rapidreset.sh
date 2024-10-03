@@ -9,7 +9,7 @@ REPEAT="$3"
 [ -z "$DURATION" ] && DURATION=60
 [ -z "$REPEAT" ] && REPEAT=1
 
-ContainerIDS=("capture-140-securesql-apache-1" "capture-140-securesql-admin-1" "capture-140-securesql-sql-1")
+ContainerIDS=("capture-360-rapidreset-rapidreset-1")
 
 function bringup {
     echo "Start the containerised applications..."
