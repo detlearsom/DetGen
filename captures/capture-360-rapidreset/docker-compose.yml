@@ -1,0 +1,47 @@
+version: '3'
+services:
+  apache:
+    image: 'detlearsom/httpd'
+    volumes:
+      - '$PWD/config/ssl/:/usr/local/apache2/conf'
+      - '$PWD/config:/usr/local/apache2/htdocs'
+      - '$PWD/scripts:/usr/local/share/scripts'
+      - '$PWD/config/extra/httpd-ssl.conf:/usr/local/apache2/conf/extra/httpd-ssl.conf'
+    ports:
+      - "80:80"
+      - "443:443"
+    command: /usr/local/share/scripts/inserver.sh ${SCENARIO}
+    networks:
+      - capture
+
+  rapidreset:
+    image: 'detlearsom/rapidreset'
+    volumes:
+      - './scripts:/usr/local/share/scripts'
+    command: /usr/local/share/scripts/inclient${SCENARIO}.sh
+    #command: sleep 1000
+    networks:
+      - capture
+
+#  tcpdump_apache:
+#    image: 'detlearsom/tcpdump-trunc'
+#    command: dump-300-apache-server ${CAPTURETIME} ${SCENARIO} ${REPNUM}
+#    volumes:
+#      - '$PWD/data:/data'
+#    network_mode: "service:apache"
+#    depends_on:
+#      - apache
+
+
+  tcpdump_rr:
+    image: 'detlearsom/tcpdump-trunc'
+    command: 360-rapidreset ${CAPTURETIME} ${SCENARIO} ${REPNUM}
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:rapidreset"
+    depends_on:
+      - rapidreset
+
+networks:
+  capture:
+    driver: "bridge"

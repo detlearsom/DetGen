@@ -1,0 +1,621 @@
+	html, body
+	{
+		height: 100%;
+	}
+	
+	body
+	{
+		margin: 0px;
+		padding: 0px;
+		background: #1B1B1B url(images/bg01.png) repeat;
+		font-family: 'Source Sans Pro', sans-serif;
+		font-size: 12pt;
+		font-weight: 400;
+		color: #525252;
+	}
+	
+	
+	h1, h2, h3
+	{
+		margin: 0;
+		padding: 0;
+		color: #454445;
+	}
+	
+	p, ol, ul
+	{
+		margin-top: 0;
+	}
+	
+	ol, ul
+	{
+		padding: 0;
+		list-style: none;
+	}
+	
+	p
+	{
+		line-height: 180%;
+	}
+	
+	strong
+	{
+	}
+	
+	a
+	{
+		color: #454445;
+	}
+	
+	a:hover
+	{
+		text-decoration: none;
+	}
+	
+	.container
+	{
+		margin: 0px auto;
+		width: 1200px;
+	}
+
+/*********************************************************************************/
+/* Image Style                                                                   */
+/*********************************************************************************/
+
+	.image
+	{
+		display: inline-block;
+	}
+	
+	.image img
+	{
+		display: block;
+		width: 100%;
+		border-radius: 8px;
+	}
+	
+	.image-full
+	{
+		display: block;
+		width: 100%;
+		margin: 0 0 2em 0;
+	}
+	
+	.image-left
+	{
+		float: left;
+		margin: 0 2em 2em 0;
+	}
+	
+	.image-centered
+	{
+		display: block;
+		margin: 0 0 2em 0;
+	}
+	
+	.image-centered img
+	{
+		margin: 0 auto;
+		width: auto;
+	}
+
+/*********************************************************************************/
+/* List Styles                                                                   */
+/*********************************************************************************/
+
+	ul.style1
+	{
+		margin: 0;
+		padding: 2em 0em 0em 0em;
+		overflow: hidden;
+		list-style: none;
+		color: #6c6c6c
+	}
+	
+	ul.style1 li
+	{
+		overflow: hidden;
+		display: block;
+		padding: 2.80em 0em;
+		border-top: 1px solid #D1CFCE;
+	}
+	
+	ul.style1 li:first-child
+	{
+		padding-top: 0;
+		border-top: none;
+	}
+	
+	ul.style1 .image-left
+	{
+		margin-bottom: 0;
+	}
+	
+	ul.style1 h3
+	{
+		padding: 1.2em 0em 5px 0em;
+		letter-spacing: 0.10em;
+		text-transform: uppercase;
+		font-size: 1.1em;
+		font-weight: 900;
+		color: #454445;
+	}
+	
+	ul.style1 a
+	{
+		text-decoration: none;
+		color: #525252;
+	}
+
+	ul.style1 a:hover
+	{
+		text-decoration: underline;
+		color: #525252;
+	}
+
+	ul.style3
+	{
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		list-style: none;
+		color: #6c6c6c
+	}
+	
+	ul.style3 li
+	{
+		overflow: hidden;
+		display: block;
+		padding: 1em 0em 0em 0em;
+		margin: 0 0 2em 0;
+		border-top: 1px solid #D1CFCE;
+	}
+	
+	ul.style3 li:first-child
+	{
+		padding-top: 0;
+		border-top: none;
+	}
+	
+	ul.style3 p
+	{
+		margin: 0;
+	}
+	
+	ul.style3 a
+	{
+		display: block;
+		text-decoration: none;
+		color: #2D2D2D;
+	}
+	
+	ul.style3 a:hover
+	{
+		text-decoration: underline;
+	}
+	
+	ul.style3 h3
+	{
+		padding: 1.5em 0em 5px 0em;
+		text-transform: uppercase;
+		font-size: 1.1em;
+		font-weight: 700;
+		color: #454445;
+	}
+	
+	ul.style3 .first
+	{
+		padding-top: 0;
+		background: none;
+	}
+	
+	ul.style3 .date
+	{
+		float: left;
+		position: relative;
+		width: 80px;
+		height: 70px;
+		margin: 1em 1.5em 0em 0em;
+		padding: 1em 0em 0em 0em;
+		background: #262626;
+		border-radius: 5px;
+		box-shadow: 0px 0px 0px 5px rgba(255,255,255,0.1);
+		line-height: normal;
+		text-align: center;
+		text-transform: uppercase;
+		text-shadow: 0px 1px 0px rgba(0,0,0,.2);
+		font-size: 1em;
+		font-weight: 400;
+		color: #FFF;
+	}
+	
+	ul.style3 .date:after
+	{
+		content: '';
+		display: block;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: 6px;
+		background: url(images/bg01.png) repeat;
+	}
+	
+	ul.style3 .date b
+	{
+		margin: 0;
+		padding: 0;
+		display: block;
+		font-size: 1.8em;
+		font-weight: 700;
+		color: #FFFFFF;
+	}
+	
+	ul.style3 .date a
+	{
+		color: #FFFFFF !important;
+	}
+	
+	ul.style3 .date a:hover
+	{
+		text-decoration: none;
+	}
+
+
+/*********************************************************************************/
+/* Social Icon Styles                                                            */
+/*********************************************************************************/
+
+	ul.contact
+	{
+		margin: 0;
+		padding: 2em 0em 0em 0em;
+		list-style: none;
+	}
+	
+	ul.contact li
+	{
+		display: inline-block;
+		padding: 0em 0.30em;
+		font-size: 1em;
+	}
+	
+	ul.contact li span
+	{
+		display: none;
+		margin: 0;
+		padding: 0;
+	}
+	
+	ul.contact li a
+	{
+		color: #FFF;
+	}
+	
+	ul.contact li a:before
+	{
+		display: inline-block;
+		background: #3f3f3f;
+		width: 40px;
+		height: 40px;
+		line-height: 40px;
+		border-radius: 20px;
+		text-align: center;
+		color: #FFFFFF;
+	}
+	
+	ul.contact li a.icon-twitter:before { background: #2DAAE4; }
+	ul.contact li a.icon-facebook:before { background: #39599F; }
+	ul.contact li a.icon-dribbble:before { background: #C4376B;	}
+	ul.contact li a.icon-tumblr:before { background: #31516A; }
+	ul.contact li a.icon-rss:before { background: #F2600B; }
+
+/*********************************************************************************/
+/* Button Style                                                                  */
+/*********************************************************************************/
+
+	.button
+	{
+		display: inline-block;
+		margin-top: 2em;
+		background: #262626 url(images/bg01.png) repeat;
+		border-radius: 5px;
+		line-height: 4em;
+		padding: 0 3em;
+		-webkit-transition: all .25s ease-in-out;
+		-moz-transition: all .25s ease-in-out;
+		-ms-transition: all .25s ease-in-out;
+		-o-transition: all .25s ease-in-out;
+		transition: all .25s ease-in-out;
+		letter-spacing: 0.25em;
+		text-decoration: none;
+		text-transform: uppercase;
+		outline: 0;
+		white-space: nowrap;
+		font-family: 'Open Sans Condensed', sans-serif;
+		font-weight: 700;
+		font-size: 0.80em !important;
+		color: #fff !important;
+	}
+
+		.button:hover
+		{
+			background: #303030 url(images/bg01.png) repeat;
+			-webkit-transition: all .25s ease-in-out;
+			-moz-transition: all .25s ease-in-out;
+			-ms-transition: all .25s ease-in-out;
+			-o-transition: all .25s ease-in-out;
+			transition: all .25s ease-in-out;
+		}
+		
+		.button:active
+		{
+			background: #1D1D1D url(images/bg01.png) repeat;
+			-webkit-transition: all .25s ease-in-out;
+			-moz-transition: all .25s ease-in-out;
+			-ms-transition: all .25s ease-in-out;
+			-o-transition: all .25s ease-in-out;
+			transition: all .25s ease-in-out;
+		}
+	
+/*********************************************************************************/
+/* Header                                                                        */
+/*********************************************************************************/
+
+	#wrapper
+	{
+		padding-top: 3em;
+		background: #EAE9E5;
+		border-top: 4px solid #319065;
+		border-bottom: 4px solid #319065;
+	}
+		
+/*********************************************************************************/
+/* Header                                                                        */
+/*********************************************************************************/
+
+	#header
+	{
+		overflow: hidden;
+		padding: 2em 0em;
+	}
+
+/*********************************************************************************/
+/* Logo                                                                          */
+/*********************************************************************************/
+
+	#logo {
+		float: left;
+		width: 300px;
+		margin: 0;
+		padding: 0 0 0 30px;
+		color: #FFFFFF;
+	}
+	
+	#logo h1, #logo p {
+	}
+	
+	#logo h1 {
+		line-height: 80px;
+		text-transform: uppercase;
+		font-size: 2.4em;
+	}
+	
+	#logo h1 a {
+		color: #FFFFFF;
+		text-shadow: 1px 1px 0px rgba(0,0,0,.2);
+	}
+	
+	#logo p {
+		margin: 0;
+		padding: 0px 0 0 0px;
+		letter-spacing: -1px;
+		font: normal 18px Georgia, "Times New Roman", Times, serif;
+		font-style: italic;
+		color: #8E8E8E;
+	}
+	
+	#logo p a {
+		color: #8E8E8E;
+	}
+	
+	#logo a {
+		border: none;
+		background: none;
+		text-decoration: none;
+		color: #000000;
+	}
+
+/*********************************************************************************/
+/* Menu                                                                          */
+/*********************************************************************************/
+	
+	#menu {
+		float: right;
+		padding: 0em 2em;
+		background: #5EB990 url(images/bg01.png) repeat;
+		border-radius: 8px;
+	}
+	
+	#menu ul {
+		float: right;
+		margin: 0;
+		padding: 0px 0px 0px 0px;
+		list-style: none;
+		line-height: normal;
+	}
+	
+	#menu li {
+		float: left;
+	}
+	
+	#menu li span
+	{
+		text-align: center;
+	}
+	
+	#menu a {
+		display: block;
+		line-height: 80px;
+		margin-right: 1px;
+		padding: 4px 20px 0px 20px;
+		letter-spacing: 1px;
+		text-decoration: none;
+		text-align: center;
+		text-shadow: 1px 1px 0px rgba(0,0,0,.2);
+		text-transform: uppercase;
+		font-size: 0.90em;
+		font-weight: 300;
+		color: #FFFFFF;
+		border: none;
+	}
+	
+	#menu .current_page_item a {
+		padding-top: 0px;
+		border-top: 4px solid #319065;
+		text-decoration: none;
+		color: #FFFFFF;
+	}
+	
+	#menu .current_page_item a {
+	}
+
+/*********************************************************************************/
+/* Banner                                                                        */
+/*********************************************************************************/
+
+	#banner
+	{
+		overflow: hidden;
+		margin-bottom: 1em;
+	}
+
+/*********************************************************************************/
+/* Page                                                                          */
+/*********************************************************************************/
+
+	#page
+	{
+		overflow: hidden;
+		width: 1100px;
+		padding: 5em 50px;
+	}
+	
+	#page h2
+	{
+		margin-bottom: 1em;
+		font-size: 1.8em;
+	}
+
+/*********************************************************************************/
+/* Content                                                                       */
+/*********************************************************************************/
+
+	#content
+	{
+		float: left;
+		width: 500px;
+	}
+
+/*********************************************************************************/
+/* Sidebar                                                                       */
+/*********************************************************************************/
+
+	#sidebar
+	{
+		float: right;
+		width: 500px;
+	}
+
+/*********************************************************************************/
+/* Footer                                                                        */
+/*********************************************************************************/
+
+	#footer
+	{
+	}
+
+/*********************************************************************************/
+/* Copyright                                                                     */
+/*********************************************************************************/
+
+	#copyright
+	{
+		padding: 6em 0em;
+		font-size: 0.75em;
+		letter-spacing: 0.20em;
+		text-align: center;
+		text-transform: uppercase;
+		color: #6A6A6A;
+	}
+	
+	#copyright a
+	{
+		color: #747474;
+	}
+
+/*********************************************************************************/
+/* Welcome                                                                       */
+/*********************************************************************************/
+
+	#welcome
+	{
+		width: 1100px;
+		margin-bottom: 5em;
+		padding: 0em 50px;
+	}
+
+	#welcome h2
+	{
+		margin: 1em 0em;
+		font-size: 2.7em;
+		font-weight: 700;
+		color: #454445;
+	}
+
+/*********************************************************************************/
+/* Three Columns                                                                 */
+/*********************************************************************************/
+
+	#three-column
+	{
+		overflow: hidden;
+		background: #FFF;
+		border-bottom: 2px solid #CFCECD;
+		text-align: center;
+		color: #525252;
+	}
+	
+	#three-column h2
+	{
+		margin: 1em 0em;
+		text-transform: uppercase;
+		font-size: 1.5em;
+		font-weight: 700;
+		color: #454445;
+	}
+	
+	#three-column .icon
+	{
+		font-size: 4em;
+	}
+	
+	#three-column #tbox1,
+	#three-column #tbox2,
+	#three-column #tbox3
+	{
+		float: left;
+		width: 300px;
+		padding: 80px 50px 80px 50px;
+	}
+
+
+
+
+
+
+
+
+
+

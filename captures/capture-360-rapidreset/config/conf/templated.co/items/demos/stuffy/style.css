@@ -1,0 +1,464 @@
+
+/*
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+*/
+
+body {
+	margin: 0;
+	padding: 0;
+	background: #E9ECEC url(images/bg01.png) repeat;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 13px;
+	color: #3B3B3B;
+}
+
+		body:after
+		{
+			content: '';
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background: url('images/bg01.png');
+			z-index: -1;
+			opacity: .05;
+		}
+
+h1, h2, h3 {
+	margin: 0px;
+	padding: 0px;
+	letter-spacing: -2px;
+	text-transform: capitalize;
+	font-weight: normal;
+	color: #2F6BCF;
+}
+
+h1 {
+	font-size: 2em;
+}
+
+h2 {
+	font-size: 2.4em;
+}
+
+h3 {
+	font-size: 1.6em;
+}
+
+p, ul, ol {
+	margin-top: 0;
+	line-height: 180%;
+}
+
+ul, ol {
+}
+
+a {
+	text-decoration: none;
+	color: #383838;
+}
+
+a:hover {
+}
+
+img
+{
+	border-radius: 8px;
+	box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
+}
+
+.image-shadow
+{
+	border-radius: 8px;
+	box-shadow: inset 0px 0px 10px rgba(0,0,0,0.2);
+}
+
+/* Header */
+
+#header-wrapper {
+}
+
+#header {
+	clear: both;
+	width: 1200px;
+	margin: 0px auto;
+}
+
+/* Logo */
+
+#logo {
+	margin: 0px;
+	padding: 30px 0px;
+	color: #0082B0;
+	text-align: center;
+}
+
+#logo h1, #logo p {
+	margin: 0;
+	padding: 0;
+}
+
+#logo h1 {
+	margin: 0px;
+	padding: 0px;
+	text-transform: lowercase;
+	font-size: 3.8em;
+	color: #0082B0;
+}
+
+#logo h1 span {
+	color: #0082B0;
+}
+
+#logo p {
+	margin: 0px;
+	padding: 0px;
+	text-transform: uppercase;
+	color: #0082B0;
+}
+
+#logo p a {
+	color: #0082B0;
+}
+
+#logo a {
+	border: none;
+	background: none;
+	text-decoration: none;
+	color: #0082B0;
+}
+
+/* Search */
+
+#search {
+	width: 320px;
+	height: 60px;
+	padding: 0px;
+}
+
+#search form {
+	margin: 0px;
+	padding: 0px;
+}
+
+#search fieldset {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+#search-text {
+	width: 210px;
+	outline: none;
+	background: #F5F0E7;
+	border: 1px solid #D7D0C0;
+	padding: 10px;
+	border-radius: 8px;
+	text-transform: lowercase;
+	font-family: 'Open Sans', sans-serif;
+	color: #454545;
+}
+
+#search-submit {
+	width: 62px;
+	height: 22px;
+	display: none;
+	border: none;
+	color: #FFFFFF;
+}
+
+/* Menu */
+
+#menu-wrapper {
+	position: relative;
+	overflow: hidden;
+	height: 56px;
+	background: #0082B0;
+}
+		#menu-wrapper:after
+		{
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background: url('images/bg01.png');
+			z-index: -1;
+			opacity: 1;
+		}
+
+#menu {
+	width: 1200px;
+	height: 55px;
+	margin: 0px auto;
+	padding: 0px;
+}
+
+#menu ul {
+	margin: 0;
+	padding: 10px 0px 0px 0px;
+	list-style: none;
+	line-height: normal;
+	text-align: center;
+}
+
+#menu li {
+	display: inline-block;
+	border-left: 1px solid #3394B5;
+}
+
+	#menu li:first-child
+	{
+		border-left: none;
+	}
+
+#menu a {
+	display: block;
+	letter-spacing: 1px;
+	margin: 0px 10px;
+	padding: 10px 20px;
+	text-decoration: none;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 12px;
+	font-weight: normal;
+	color: #FFFFFF;
+	border: none;
+}
+
+#menu a:hover, #menu .current_page_item a {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+#menu .current_page_item a {
+}
+
+/* Page */
+
+#page {
+	overflow: hidden;
+	width: 1140px;
+	margin: 0px auto 50px auto;
+	padding: 30px 30px 0 30px;
+	background: #FFF;
+	border: 1px solid rgba(0,0,0,.05);
+	box-shadow: 0px 0px 0px 10px rgba(0,0,0,0.03);
+	border-radius: 8px;
+}
+
+/* Content */
+
+#content {
+	float: left;
+	width: 500px;
+	padding-top: 30px;
+	padding-left: 20px;
+}
+
+.post {
+	margin-bottom: 15px;
+}
+
+.post-bgtop {
+}
+
+.post-bgbtm {
+}
+
+.post .title {
+	margin-bottom: 20px;
+	padding-left: 0.5em;
+	font-size: 32px;
+	line-height: 40px;
+	border-left: 4px solid #0082B0;
+	color: #0082B0;
+}
+
+.post .title a
+{
+	display: block;
+	border-bottom: 1px solid rgba(0,0,0,.07);
+}
+
+.post .title a {
+	border: none;
+	color: #0082B0;
+}
+
+.post .meta {
+	margin-bottom: 30px;
+	padding: 5px 0px 15px 0px;
+	text-align: left;
+	font-weight: normal;
+}
+
+.post .meta .date {
+	float: left;
+}
+
+.post .meta .posted {
+	float: right;
+}
+
+.post .meta a {
+}
+
+.post .entry {
+	padding: 0px 0px 20px 0px;
+	padding-bottom: 20px;
+	text-align: justify;
+}
+
+.links {
+	display: block;
+	height: 30px;
+	padding: 30px 0px 0px 0px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: normal;
+	color: #1C1C1C;
+}
+
+.button
+{
+	padding: 10px 25px;
+	background: #000;
+	border-radius: 5px;
+	text-transform: uppercase;
+	font-size: 12px;
+	color: #FFFFFF;
+}
+
+/* Sidebar */
+
+#sidebar2
+{
+	float: right;
+	width: 250px;
+	padding: 40px 30px 0px 0px;
+}
+
+#sidebar {
+	float: left;
+	width: 250px;
+	padding: 40px 0px 0px 50px;
+	color: #787878;
+}
+
+#sidebar ul, #sidebar2 ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#sidebar li, #sidebar2 li {
+	margin: 0;
+	padding: 0;
+}
+
+#sidebar li ul, #sidebar2 li ul {
+	margin: 0px 0px;
+	padding-bottom: 50px;
+}
+
+#sidebar li li, #sidebar2 li li {
+	border-bottom: 1px solid rgba(0,0,0,.07);
+	margin: 0px 0px;
+	padding: 10px 0px;
+	border-left: none;
+	list-style: inside square;
+}
+
+#sidebar li li a, #sidebar2 li li a {
+	color: #3B3B3B;
+}
+
+#sidebar li li span, #sidebar2 li li span {
+	display: block;
+	padding: 0;
+	font-size: 11px;
+	font-style: italic;
+}
+
+#sidebar h2, #sidebar2 h2 {
+	padding-bottom: 20px;
+	font-size: 2em;
+	color: #0082B0;
+}
+
+#sidebar p, #sidebar2 p {
+	margin: 0px 0px 40px 0px;
+	padding: 0px;
+	text-align: justify;
+}
+
+#sidebar a, #sidebar2 a {
+	border: none;
+}
+
+#sidebar a:hover, #sidebar2 a:hover {
+	text-decoration: underline;
+}
+
+/* Calendar */
+
+#calendar {
+}
+
+#calendar_wrap {
+	padding: 20px;
+}
+
+#calendar table {
+	width: 100%;
+}
+
+#calendar tbody td {
+	text-align: center;
+}
+
+#calendar #next {
+	text-align: right;
+}
+
+/* Footer */
+
+#footer {
+	margin: 0 auto;
+	padding: 3em 0em 5em 0em;
+	background: rgba(0,0,0,.06);
+}
+
+#footer p {
+	margin: 0;
+	padding-top: 20px;
+	line-height: normal;
+	text-align: center;
+	color: #A0A0A0;
+}
+
+#footer a {
+	color: #8A8A8A;
+}
+
+#banner-wrapper
+{
+	overflow: hidden;
+	padding: 3em 0em;
+	background: rgba(0,0,0,.06);
+}
+
+#banner {
+	width: 1200px;
+	margin: 0px auto 0px auto;
+}
+
+#banner img
+{
+	box-shadow: 0px 0px 0px 10px rgba(0,0,0,0.03);
+}

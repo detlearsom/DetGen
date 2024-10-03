@@ -1,0 +1,87 @@
+/*
+	Altitude by TEMPLATED
+    templated.co @templatedco
+    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+*/
+
+/*********************************************************************************/
+/* Basic                                                                         */
+/*********************************************************************************/
+
+	body
+	{
+	}
+
+	body,input,textarea,select
+	{
+	}
+
+/*********************************************************************************/
+/* Banner                                                                        */
+/*********************************************************************************/
+
+	#banner
+	{
+		overflow: hidden;
+		position: relative;
+		padding: 10px 10px 10px 10px;
+		background-color: #FFFFFF;
+	}
+	
+	#banner a
+	{
+	}
+	
+	#banner a img
+	{
+		width: 100%;
+		display: block;
+	}
+	
+	#banner .image-box
+	{
+		position: relative;
+		top: 0;
+		left: 0;
+	}
+	
+	#banner .caption
+	{
+		position: absolute;
+		width: 100%;
+		height: 145px;
+		top: 105px;
+		left: 0;
+		line-height: 145px;
+		background: url(https://templated.co/items/demos/altitude/css/images/img01.jpg) repeat;
+		font-size: 2em;
+		color: #aaa;
+		text-align: center;
+		text-shadow: -1px -1px 1px rgba(0,0,0,1);
+		color: #FFFFFF;
+	}
+	
+	#banner .caption span
+	{
+	}
+	
+	#banner .caption span strong
+	{
+		color: #ffffff;
+	}
+	
+	#banner .caption .button
+	{
+		border: solid 1px #001916;
+		margin-left: 0.8em;
+	}
+	
+
+/*********************************************************************************/
+/* Wrapper                                                                        */
+/*********************************************************************************/
+
+	#wrapper
+	{
+		padding-bottom: 4em;
+	}

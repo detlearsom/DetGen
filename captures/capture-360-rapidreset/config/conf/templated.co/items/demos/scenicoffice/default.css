@@ -1,0 +1,515 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+	background: #171717;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 12pt;
+	font-weight: 300;
+	color: #363636;
+}
+
+
+h1, h2, h3 {
+	margin: 0;
+	padding: 0;
+}
+
+p, ol, ul {
+	margin-top: 0px;
+}
+
+p {
+	line-height: 190%;
+}
+
+strong {
+}
+
+a {
+	color: #171717;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+a img {
+	border: none;
+}
+
+	.image
+	{
+		display: inline-block;
+		padding: 5px;
+	}
+	
+		.image img
+		{
+			display: block;
+			width: 100%;
+		box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+		}
+
+	.image-full
+	{
+		display: block;
+		width: 100%;
+		margin: 0 0 2em 0;
+	}
+	
+	.image-left
+	{
+		float: left;
+		margin: 0 2em 2em 0;
+	}
+	
+	.image-centered
+	{
+		display: block;
+		margin: 0 0 2em 0;
+	}
+
+		.image-centered img
+		{
+			margin: 0 auto;
+			width: auto;
+		}
+
+hr {
+	display: none;
+}
+
+.button
+{
+	position: relative;
+	display: inline-block;
+	margin-top: 2em;
+	padding: 1em 3em;
+	background: #4388C5;
+	border-radius: 7px;
+	letter-spacing: 0.10em;
+	text-decoration: none;
+	text-transform: uppercase;
+	text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+	font-weight: 700;
+	font-size: 0.90em;
+	color: #FFF;
+}
+
+	.button:before
+	{
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-image: url('images/bg01.png');
+		opacity: .5;
+	}
+
+
+/*********************************************************************************/
+/* List Styles                                                                   */
+/*********************************************************************************/
+
+	ul.style2
+	{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	
+	ul.style2 li
+	{
+		border-top: solid 1px #E5E5E5;
+		padding: 0.80em 0;
+	}
+	
+	ul.style2 li:first-child
+	{
+		border-top: 0;
+		padding-top: 0;
+	}
+
+/*********************************************************************************/
+/* Social Icon Styles                                                            */
+/*********************************************************************************/
+
+	ul.contact
+	{
+		margin: 0;
+		padding: 3em 0em 0em 0em;
+		list-style: none;
+	}
+	
+	ul.contact li
+	{
+		display: inline-block;
+		padding: 0em 0.30em;
+		font-size: 1.2em;
+	}
+	
+	ul.contact li span
+	{
+		display: none;
+		margin: 0;
+		padding: 0;
+	}
+	
+	ul.contact li a
+	{
+		color: #FFF;
+	}
+	
+	ul.contact li a:before
+	{
+		display: inline-block;
+		background: #3f3f3f;
+		width: 56px;
+		height: 56px;
+		line-height: 56px;
+		text-align: center;
+		color: #FFFFFF;
+	}
+	
+	ul.contact li a.icon-twitter:before { background: #2DAAE4; }
+	ul.contact li a.icon-facebook:before { background: #39599F; }
+	ul.contact li a.icon-dribbble:before { background: #C4376B;	}
+	ul.contact li a.icon-tumblr:before { background: #31516A; }
+	ul.contact li a.icon-rss:before { background: #F2600B; }
+
+
+/*********************************************************************************/
+/* Heading Titles                                                                */
+/*********************************************************************************/
+
+	.title
+	{
+		margin-bottom: 2em;
+		text-transform: uppercase;
+	}
+
+	.title h2
+	{
+		letter-spacing: 0.20em;
+		font-weight: 700;
+		font-size: 2em;
+		color: #171717;
+	}
+	
+	.title .byline
+	{
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		font-weight: 400;
+		font-size: 0.90em;
+		color: #6F6F6F;
+	}
+
+/*********************************************************************************/
+/* Wrappers                                                                      */
+/*********************************************************************************/
+	
+	.container 
+	{
+		width: 1200px;
+		margin: 0px auto;
+	}
+
+	#wrapper {
+		background: #FFFFFF url(images/bg01.png) repeat;
+	}
+	
+	#footer-wrapper
+	{
+		overflow: hidden;
+		padding: 5em 0em;
+		background: #F2F2F2 url(images/bg01.png) repeat;
+	}
+
+/*********************************************************************************/
+/* Header                                                                        */
+/*********************************************************************************/
+
+	#header 
+	{
+		position: relative;
+		overflow: hidden;
+		height: 8em;
+		background: #4388C5;
+		box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+	}
+	
+	#header:before
+	{
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-image: url('images/bg01.png');
+		opacity: .4;
+	}
+
+/*********************************************************************************/
+/* Logo                                                                          */
+/*********************************************************************************/
+
+	#logo
+	{
+		position: absolute;
+		left: 0;
+		height: 8em;
+		background: #226199;
+	}
+
+	#logo:before
+	{
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-image: url('images/bg01.png');
+		opacity: .7;
+	}
+	
+	#logo h1
+	{
+		display: inline-block;
+		padding: 1em 2em 0em 2em;
+		text-transform: uppercase;
+		text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+		font-weight: 900;
+		font-size: 2.5em;
+		color: #FFFFFF;
+	}
+	
+	#logo a
+	{
+		text-decoration: none;
+		color: #FFFFFF;
+	}
+
+/*********************************************************************************/
+/* Menu                                                                          */
+/*********************************************************************************/
+
+	#menu
+	{
+	}
+	
+	#menu
+	{
+		position: absolute;
+		display: block;
+		top: 2.7em;
+		right: 2em;
+		text-align: center;
+	}
+	
+	#menu > ul > li > ul
+	{
+		display: none;
+	}
+	
+	#menu ul
+	{
+		display: inline-block;
+	}
+	
+	#menu li
+	{
+		display: block;
+		float: left;
+		text-align: center;
+	}
+	
+	#menu li a
+	{
+		display: block;
+		padding: 0.80em 1.5em;
+		letter-spacing: 0.25em;
+		text-decoration: none;
+		font-size: 0.80em;
+		font-weight: 600;
+		text-transform: uppercase;
+		text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+		outline: 0;
+		color: #CCE7FF;
+	}
+	
+	#menu li:hover a, #menu li.active a, #menu li.active span
+	{
+	}
+	
+	#menu .current_page_item a
+	{
+		color: #FFFFFF;
+	}
+
+
+/*********************************************************************************/
+/* Banner                                                                        */
+/*********************************************************************************/
+
+	#banner 
+	{
+	}
+	
+/*********************************************************************************/
+/* Page                                                                          */
+/*********************************************************************************/
+
+	#page
+	{
+		overflow: hidden;
+		padding: 6em 0em 5em 0em;
+	}
+
+/*********************************************************************************/
+/* Content                                                                       */
+/*********************************************************************************/
+
+	#content
+	{
+		float: left;
+		width: 790px;
+	}
+
+/*********************************************************************************/
+/* Sidebar                                                                       */
+/*********************************************************************************/
+
+	#sidebar
+	{
+		float: right;
+		width: 345px;
+	}
+	
+	#sidebar .title h2
+	{
+		font-size: 1.6em;
+	}
+	
+	#sidebar .box1,
+	#sidebar .box2
+	{
+		margin-bottom: 3em;
+	}
+
+/*********************************************************************************/
+/* Footer                                                                        */
+/*********************************************************************************/
+
+	#footer
+	{
+		overflow: hidden;
+		padding: 5em 0em;
+		text-align: center;
+		text-transform: uppercase;
+		color: #6F6F6F;
+	}
+	
+	#footer h2
+	{
+		letter-spacing: 0.20em;
+		font-weight: 700;
+		font-size: 2.4em;
+		color: #FFF;
+	}
+	
+	#footer .byline
+	{
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		font-weight: 400;
+		font-size: 0.90em;
+		color: #6F6F6F;
+	}
+
+/*********************************************************************************/
+/* Copyright                                                                     */
+/*********************************************************************************/
+
+	#copyright
+	{
+		overflow: hidden;
+		padding: 5em 0em;
+	}
+	
+	#copyright p
+	{
+		letter-spacing: 0.20em;
+		text-align: center;
+		text-transform: uppercase;
+		font-size: 0.80em;
+		color: #6F6F6F;
+	}
+	
+	#copyright a
+	{
+		text-decoration: none;
+		color: #8C8C8C;
+	}
+
+/*********************************************************************************/
+/* Article                                                                       */
+/*********************************************************************************/
+
+	.borders
+	{
+		overflow: hidden;
+		margin-bottom: 4em;
+		padding-bottom: 3em;
+		border-bottom: 1px solid #E5E5E5;
+	}
+	
+/*********************************************************************************/
+/* Portfolio                                                                     */
+/*********************************************************************************/
+
+	#portfolio
+	{
+		text-align: center;
+	}
+	
+	#portfolio .title h2
+	{
+		color: #262626;
+	}
+	
+	#column1,
+	#column2,
+	#column3,
+	#column4
+	{
+		width: 282px;
+	}
+	
+	#column1,
+	#column2
+	{
+		float: left;
+		margin-right: 24px;
+	}
+	
+	#column3
+	{
+		float: left;
+	}
+	
+	#column4
+	{
+		float: right;
+	}
+
+
+	
