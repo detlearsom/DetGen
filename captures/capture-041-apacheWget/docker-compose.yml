@@ -6,9 +6,10 @@ services:
       - '$PWD/config:/usr/local/apache2/htdocs'
     networks:
       - capture
+
   wget:
     image: 'detlearsom/wget'
-    command: wget --recursive --page-requisites --html-extension --convert-links "http://apache" -P /data
+    command: watch -n 1 wget --recursive --page-requisites --html-extension --convert-links "http://apache" -P /data
     volumes:
       - "$PWD/data:/data"
     networks:
@@ -16,30 +17,22 @@ services:
 
   tcpdump_apache:
     image: 'detlearsom/tcpdump'
-    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-041-apacheWget-server-${CAPTURETIME}-$REPNUM.pcap"
+    command: dump-041-apache ${CAPTURETIME} ${SCENARIO} ${REPNUM}
     volumes:
       - '${DATADIR}:/data'
     network_mode: "service:apache"
     depends_on:
-      - dummy
+      - apache
 
 
   tcpdump_wget:
     image: 'detlearsom/tcpdump'
-    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-041-apacheWget-client-${CAPTURETIME}-$REPNUM.pcap"
+    command: dump-041-wget ${CAPTURETIME} ${SCENARIO} ${REPNUM}
     volumes:
       - '${DATADIR}:/data'
     network_mode: "service:wget"
     depends_on:
-      - dummy
-
-  dummy:
-    image: 'ubuntu'
-    networks:
-      - capture
-    depends_on:
       - wget
-      - apache
 
 networks:
   capture:
