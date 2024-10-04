@@ -37,14 +37,14 @@ do
 #    . ../Controlfunctions/activity_selector.sh 13
     ################################################################################
     bringup;
-    . ../Controlfunctions/container_tc.sh "${ContainerIDS[0]}" "${ContainerIDS[1]}"
-    . ../Controlfunctions/set_load.sh ${Nworkers}
+#    . ../Controlfunctions/container_tc.sh "${ContainerIDS[0]}" "${ContainerIDS[1]}"
+#    . ../Controlfunctions/set_load.sh ${Nworkers}
     ################################################################################
     echo "Capturing data now for $DURATION seconds...."
     sleep $DURATION
     ################################################################################
-    . ../Controlfunctions/kill_load.sh
-    . ../Controlfunctions/label_writer.sh
+#    . ../Controlfunctions/kill_load.sh
+#    . ../Controlfunctions/label_writer.sh
     ################################################################################
     teardown;
     rm -rf data/nginx
