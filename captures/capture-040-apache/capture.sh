@@ -1,10 +1,8 @@
 #!/bin/bash
 
 DURATION="$1"
-export CONCURRENT_THREADS="$2"
-export REQUESTS="$3"
 export CAPTURETIME=`date +%Y-%m-%d_%H-%M-%S`
-REPEAT="$4"
+REPEAT="$2"
 
 
 [ -z "$DURATION" ] && DURATION=60

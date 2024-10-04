@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   apache:
     image: 'detlearsom/httpd'
@@ -8,15 +8,16 @@ services:
       - "80:80"
     networks:
       - capture
+
   siege:
     image: 'detlearsom/siege'
-    command: -c${CONCURRENT_THREADS} -r${REQUESTS} -v http://apache
+    command: siege -c${CONCURRENT_THREADS} -r${REQUESTS} -v http://apache
     networks:
       - capture
 
   tcpdump_apache:
     image: 'detlearsom/tcpdump'
-    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-040-apache-server-${CAPTURETIME}-$REPNUM.pcap"
+    command: dump-040-httpd ${CAPTURETIME} ${SCENARIO} ${REPNUM}
     volumes:
       - '$PWD/data:/data'
     network_mode: "service:apache"
@@ -26,19 +27,11 @@ services:
 
   tcpdump_siege:
     image: 'detlearsom/tcpdump'
-    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-040-apache-client-${CAPTURETIME}-$REPNUM.pcap"
+    command: dump-040-siege ${CAPTURETIME} ${SCENARIO} ${REPNUM}
     volumes:
       - '$PWD/data:/data'
     network_mode: "service:siege"
     depends_on:
-      - dummy
-
-  dummy:
-    image: 'ubuntu'
-    networks:
-      - capture
-    depends_on:
-      - tcpdump_apache
       - siege
 
 networks:
