@@ -41,7 +41,7 @@ do
     echo "Repeat Nr " $i
     export REPNUM=$i
     bringup;
-    add_delays;
+#    add_delays;
     echo "Capturing data now for $DURATION seconds...."
     sleep $DURATION
     teardown;
