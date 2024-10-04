@@ -1,5 +1,18 @@
 # tcpdump docker container
 
+A simple tcpdump image that runs a script that takes the following position arguments
+
+    $ NAME="$1"
+    $ CAPTURETIME="$2"
+    $ SCENARIO="$3"
+    $ REPNUM="$4"
+
+The command.sh script automatically filters out some unwanted traffic. The filenames produced by the container are determined by `$NAME`.
+
+# tcpdump - Dockerfile.orig
+
+We originally used this Dockerfile for our tcpdump containers. However, changes to how docker-compose parses docker-compose.yml files broke many of our commands. This original version is more flexible than our current version so we leave it here for posterity. However, writing complex commands that can be parsed correctly by docker-compose is a chore.
+
 This simple image runs a tcpdump and writes dumps to the volume /data.
 
 To capture on the hosts network interfaces, you need to run the

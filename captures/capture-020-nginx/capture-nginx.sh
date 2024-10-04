@@ -4,13 +4,14 @@ DURATION="$1"
 export CONCURRENT_THREADS="$2"
 export REQUESTS="$3"
 export CAPTURETIME=`date +%Y-%m-%d_%H-%M-%S`
+export SCENARIO="1"
 REPEAT="$4"
 
 
 [ -z "$DURATION" ] && DURATION=60
 [ -z "$REPEAT" ] && REPEAT=1
-[ -z "$CONCURRENT_THREADS" ] && CONCURRENT_THREADS=1
-[ -z "$REQUESTS" ] && REQUESTS=20
+[ -z "$CONCURRENT_THREADS" ] && CONCURRENT_THREADS=10
+[ -z "$REQUESTS" ] && REQUESTS=2000
 
 function bringup {
     echo "Start the containerised applications..."
@@ -22,7 +23,7 @@ function teardown {
     echo "Take down the containerised applications and networks..."
     # NB: this removes everything so it is hard to debug from this script
     # TODO: add a `--debug` option instead use `docker-compose stop`.
-    docker-compose --no-ansi --log-level ERROR down --remove-orphans -v
+    docker-compose --no-ansi --log-level ERROR down -v
     echo "Done."
 }
 
