@@ -11,6 +11,7 @@ RUN set -ex \
         gnupg \
         gstreamer1.0-alsa \
         libxml2-dev \
+        libxt-dev \
         libxslt1-dev \
         gstreamer1.0-plugins-bad \
         gstreamer1.0-pulseaudio \
@@ -19,13 +20,21 @@ RUN set -ex \
         gcc \
         python3-cryptography \
         python3-distutils \
+        gir1.2-gst-plugins-base-1.0 \
+        gir1.2-gstreamer-1.0 \
+        gstreamer1.0-plugins-good \
+        gstreamer1.0-plugins-ugly \
+        gstreamer1.0-tools \
+        libcairo2-dev \
+        libgirepository1.0-dev \
+        python3-gst-1.0 \
  && curl -L https://bootstrap.pypa.io/get-pip.py | python - \
  && pip install pipenv \
     # Clean-up
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
 
-RUN pip install pykka==3.1.1
+RUN pip install PyGObject
 RUN mkdir -p /etc/apt/keyrings
 RUN wget -q -O /etc/apt/keyrings/mopidy-archive-keyring.gpg \
   https://apt.mopidy.com/mopidy.gpg
