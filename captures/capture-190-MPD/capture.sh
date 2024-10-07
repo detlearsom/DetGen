@@ -23,7 +23,8 @@ function teardown {
 }
 
 function scenario {
-    VAR="$(docker ps | grep "mpd_mpc")"
+    VAR="$(docker ps | grep "mpd-mpc")"
+    echo $VAR
     VAR2="${VAR:0:8}"
     docker exec -ti $VAR2 /bin/sh -c "/var/lib/scripts/inclient$SCENARIO.sh $DURATION" 
 }
@@ -48,7 +49,7 @@ do
     export REPNUM=$i
     bringup;
     echo "Initiating scenario $SCENARIO"
-    add_delays;
+#    add_delays;
     scenario;
     echo "Capturing data now for $DURATION seconds...."
     sleep $DURATION
