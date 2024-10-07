@@ -1,5 +1,5 @@
-FROM ubuntu:latest
+FROM debian:buster-slim
 
-RUN apt-get update && apt-get install -y ffmpeg
+RUN apt-get update && apt-get upgrade -y && apt-get install -y ffmpeg
 
 

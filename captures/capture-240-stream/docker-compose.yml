@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   nginx_host:
@@ -13,7 +13,7 @@ services:
   streamer:
     image: 'detlearsom/ffmpeg'
     command: /usr/share/scripts/start_stream.sh
-#    command: sleep 1000
+    #command: sleep 1000
     volumes:
       - '$PWD/streamer-share:/usr/share/'
     networks:
@@ -24,7 +24,7 @@ services:
   viewer:
     image: 'detlearsom/rtmpdump'
     command: /usr/share/scripts/watch_stream.sh
-#    command: sleep 1000
+    #command: sleep 1000
     volumes:
       - '$PWD/viewer-share:/usr/share/scripts'
     networks:
@@ -34,39 +34,30 @@ services:
 
   tcpdump_nginx_host:
     image: 'detlearsom/tcpdump'
-    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-240-nginx_rtmp_host-${CAPTURETIME}-$REPNUM.pcap"
+    command: dump-240-nginx ${CAPTURETIME} ${SCENARIO} ${REPNUM}
     volumes:
       - '$PWD/data:/data'
     network_mode: "service:nginx_host"
     depends_on:
-      - dummy
+      - nginx_host
 
   tcpdump_streamer:
     image: 'detlearsom/tcpdump'
-    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-240-streamer-${CAPTURETIME}-$REPNUM.pcap"
+    command: dump-240-streamer ${CAPTURETIME} ${SCENARIO} ${REPNUM}
     volumes:
       - '$PWD/data:/data'
     network_mode: "service:streamer"
     depends_on:
-      - dummy
+      - streamer
 
   tcpdump_viewer:
     image: 'detlearsom/tcpdump'
-    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-240-viewer-${CAPTURETIME}-$REPNUM.pcap"
+    command: dump-240-viewer ${CAPTURETIME} ${SCENARIO} ${REPNUM}
     volumes:
       - '$PWD/data:/data'
     network_mode: "service:viewer"
     depends_on:
-      - dummy
-
-  dummy:
-    image: 'ubuntu'
-    networks:
-      - capture
-    depends_on:
-      - nginx_host
-
-  
+      - viewer
 
 networks:
   capture:
