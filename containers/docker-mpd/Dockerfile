@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM python:3.9.20-slim-bullseye
 
 RUN set -ex \
     # Official Mopidy install for Debian/Ubuntu along with some extensions
@@ -6,31 +6,49 @@ RUN set -ex \
  && apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         curl \
+        wget \
         dumb-init \
         gnupg \
         gstreamer1.0-alsa \
+        libxml2-dev \
+        libxslt1-dev \
         gstreamer1.0-plugins-bad \
-        python3-crypto \
+        gstreamer1.0-pulseaudio \
+        gstreamer1.0-tools  \
+        python3-pykka \
+        gcc \
+        python3-cryptography \
         python3-distutils \
- && curl -L https://bootstrap.pypa.io/get-pip.py | python3 - \
+ && curl -L https://bootstrap.pypa.io/get-pip.py | python - \
  && pip install pipenv \
     # Clean-up
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
 
-RUN set -ex \
- && curl -L https://apt.mopidy.com/mopidy.gpg | apt-key add - \
- && curl -L https://apt.mopidy.com/mopidy.list -o /etc/apt/sources.list.d/mopidy.list \
- && apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+RUN pip install pykka==3.1.1
+RUN mkdir -p /etc/apt/keyrings
+RUN wget -q -O /etc/apt/keyrings/mopidy-archive-keyring.gpg \
+  https://apt.mopidy.com/mopidy.gpg
+RUN wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/bookworm.list
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
         mopidy \
         mopidy-mpd \
-        mopidy-local \
+        mopidy-local 
+
+#RUN set -ex \
+# && curl -L https://apt.mopidy.com/mopidy.gpg | apt-key add - \
+# && curl -L https://apt.mopidy.com/mopidy.list -o /etc/apt/sources.list.d/mopidy.list \
+# && apt-get update \
+# && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+#        mopidy \
+#        mopidy-mpd \
+#        mopidy-local \
     # Clean-up
- && apt-get purge --auto-remove -y \
-        gcc \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
+# && apt-get purge --auto-remove -y \
+#        gcc \
+# && apt-get clean \
+# && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
 
 COPY Pipfile Pipfile.lock /
 
