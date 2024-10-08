@@ -1,0 +1,2 @@
+2024-03-20T16:45:44.663149+00:00 818d1d3ca03d apache-error [Wed Mar 20 16:45:46.131832 2024] [core:error] [pid 9:tid 140217293977344] [client 172.16.27.3:50688] AH10244: invalid URI path (//icons/.%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd)
+2024-03-20T16:45:44.678267+00:00 818d1d3ca03d apache-access 172.16.27.3 50688 - [20/Mar/2024:16:45:46 +0000] "GET //icons/.%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd HTTP/1.1" 400 226 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0"
