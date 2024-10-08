@@ -1,12 +1,11 @@
-version: '2'
-
+version: '3'
 services:
   mopidy:
     image: 'detlearsom/mpd'
-    command: sleep 1000
+    command: mopidy
     volumes: 
       - '$PWD/media:/var/lib/mopidy/media:ro'
-      - '$PWD/mpd_share/mopidy.conf:~/.config/mopidy/mopidy.conf'
+      - '$PWD/mpd_share/mopidy.conf:/home/.config/mopidy/mopidy.conf'
     ports:
       - '6600:6600'
       - '6680:6680'
@@ -19,9 +18,11 @@ services:
     image: 'detlearsom/mpc-cli'
     command: tail -f /dev/null
     volumes:
-      - '$PWD/scripts/:/var/lib/scripts' 
+      - '$PWD/scripts/:/var/lib/scripts'
     networks: 
       - capture
+    depends_on:
+      - mopidy
 
   tcpdump_mpd:
     image: 'detlearsom/tcpdump'
