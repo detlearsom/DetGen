@@ -1,22 +1,16 @@
-FROM centos:7
-MAINTAINER Fer Uria <fauria@gmail.com>
-LABEL Description="vsftpd Docker image based on Centos 7. Supports passive mode and virtual users." \
-	License="Apache License 2.0" \
-	Usage="docker run -d -p [HOST PORT NUMBER]:21 -v [HOST FTP HOME]:/home/vsftpd fauria/vsftpd" \
-	Version="1.0"
+FROM debian:bookworm-slim
 
-RUN yum -y update && yum clean all
-RUN yum install -y \
+RUN apt-get -y update
+RUN apt-get install -y \
 	vsftpd \
-	db4-utils \
-	db4 && yum clean all
+	db-util 
 
-ENV FTP_USER **String**
-ENV FTP_PASS **Random**
-ENV PASV_ADDRESS **IPv4**
-ENV PASV_MIN_PORT 21100
-ENV PASV_MAX_PORT 21110
-ENV LOG_STDOUT **Boolean**
+ENV FTP_USER=**String**
+ENV FTP_PASS=**Random**
+ENV PASV_ADDRESS=**IPv4**
+ENV PASV_MIN_PORT=21100
+ENV PASV_MAX_PORT=21110
+ENV LOG_STDOUT=**Boolean**
 
 COPY vsftpd.conf /etc/vsftpd/
 COPY vsftpd_virtual /etc/pam.d/

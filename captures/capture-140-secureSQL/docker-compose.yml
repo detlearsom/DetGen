@@ -6,15 +6,19 @@ services:
     container_name: mysql
     ports:
       - '3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
     volumes: 
       - $PWD/sql-share:/home/share/
-      - $PWD/sql_settings/my.cnf:/etc/my.cnf
+      - $PWD/sql-settings/my.cnf:/etc/my.cnf
+      #command: /home/share/sql_share.sh password
     networks:
       capture:
         ipv4_address: 172.16.238.22
   
   apache:
     image: 'detlearsom/php'
+    container_name: apachephp
     volumes:
        - '$PWD/config:/var/www/html'
     ports:
@@ -23,49 +27,41 @@ services:
       capture:
         ipv4_address: 172.16.238.20
 
-  admin_user:
-    image: 'python-requests'
+  admin:
+    image: 'detlearsom/python'
     command: python /usr/share/scripts/populate_userlist.py
+    #command: sleep 1000
     volumes:
       - '$PWD/admin-share:/usr/share/scripts'
     networks:
       - capture
 
   tcpdump_apache:
-    image: 'detlearsom/tcpdump'
-    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-150-apache-${CAPTURETIME}-$REPNUM.pcap"
+    image: 'detlearsom/tcpdump-trunc'
+    command: 140-apache ${CAPTURETIME} ${SCENARIO} ${REPNUM}
     volumes:
       - '$PWD/data:/data'
     network_mode: "service:apache"
     depends_on:
-      - dummy
+      - apache
 
   tcpdump_admin:
-    image: 'detlearsom/tcpdump'
-    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-150-admin-${CAPTURETIME}-$REPNUM.pcap"
+    image: 'detlearsom/tcpdump-trunc'
+    command: 140-admin ${CAPTURETIME} ${SCENARIO} ${REPNUM}
     volumes:
       - '$PWD/data:/data'
-    network_mode: "service:admin_user"
+    network_mode: "service:admin"
     depends_on:
-      - dummy
+      - admin
 
   tcpdump_sql:
-    image: 'detlearsom/tcpdump'
-    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-150-sql-${CAPTURETIME}-$REPNUM.pcap"
+    image: 'detlearsom/tcpdump-trunc'
+    command: 140-sql ${CAPTURETIME} ${SCENARIO} ${REPNUM}
     volumes:
       - '$PWD/data:/data'
     network_mode: "service:sql"
     depends_on:
-      - dummy
-
-  dummy:
-    image: 'alpine'
-    networks:
-      - capture
-    depends_on:
       - sql
-      - apache
-      - admin_user
 
 
 networks:

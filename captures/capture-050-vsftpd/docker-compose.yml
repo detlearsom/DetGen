@@ -6,7 +6,8 @@ services:
       capture:
         ipv4_address: 172.16.238.15
     volumes:
-      - '$PWD/users:/home/vsftpd'
+      - '$PWD/users:/home/vsftpd/'
+      - '$PWD/dataToShare:/home/vsftpd/$User'
     environment:
       - FTP_USER=$User
       - FTP_PASS=$Password
@@ -24,14 +25,14 @@ services:
 
   tcpdump_vsftpd:
     image: 'detlearsom/tcpdump'
-    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-050-vsftpd-server-${CAPTURETIME}-sc${SCENARIO}-${REPNUM}.pcap"
+    command: dump-050-vsftpd ${CAPTURETIME} ${SCENARIO} ${REPNUM}
     volumes:
       - '${DATADIR}:/data'
     network_mode: "service:vsftpd"
 
   tcpdump_ftp-client:
     image: 'detlearsom/tcpdump'
-    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-050-vsftpd-client-${CAPTURETIME}-sc${SCENARIO}-$REPNUM.pcap"
+    command: dump-050-ftp-client ${CAPTURETIME} ${SCENARIO} ${REPNUM}
     volumes:
       - '${DATADIR}:/data'
     network_mode: "service:ftp-client"

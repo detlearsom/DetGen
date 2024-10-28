@@ -1,12 +1,11 @@
-version: '2'
-
+version: '3'
 services:
   tracker:
     image: 'detlearsom/opentracker'
     ports:
       - 6969:6969
       - 6969:6969/udp
-    command: opentracker -f /etc/opentracker/opentracker.conf 
+    command: opentracker -f /etc/opentracker/opentracker.conf
     hostname: tracker
     container_name: tracker
     networks:
@@ -21,6 +20,7 @@ services:
       - "31967:31967/udp"
     volumes: 
       - '$PWD/host-share:/root/shared'
+    #command: sleep 1000
     command: /root/shared/torrentHost.sh $DURATION
     networks:
       capture:
@@ -35,6 +35,7 @@ services:
       - "31968:31968"
       - "31968:31968/udp"
     command: /root/shared/torrentClient.sh $DURATION
+    #command: sleep 10000
     volumes: 
       - '$PWD/client-share:/root/shared'
     networks:
@@ -46,7 +47,7 @@ services:
 
   tcpdump_torrent_host:
     image: 'detlearsom/tcpdump'
-    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-130-torrent-host-${CAPTURETIME}-sc${SCENARIO}-$REPNUM.pcap"
+    command: dump-130-torrenthost ${CAPTURETIME} ${SCENARIO} ${REPNUM}
     depends_on:
       - torrent_host
     volumes:
@@ -57,7 +58,7 @@ services:
 
   tcpdump_client1:
     image: 'detlearsom/tcpdump'
-    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-130-torrent-client1-${CAPTURETIME}-sc${SCENARIO}-$REPNUM.pcap"
+    command: dump-130-torrent_client1 ${CAPTURETIME} ${SCENARIO} ${REPNUM}
     depends_on:
       - torrent_client1
     volumes:

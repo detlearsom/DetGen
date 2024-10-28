@@ -7,7 +7,7 @@ FILE="$3"
 cd ..
 rm -rf user/*
 echo "CONNECTING ..."
-ftp -ni $HOST <<END_SCRIPT
+ftp -ni $HOST 21 <<END_SCRIPT
 quote USER $USER
 quote PASS $PASS
 pwd

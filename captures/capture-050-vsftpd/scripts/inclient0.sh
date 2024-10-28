@@ -9,7 +9,7 @@ FILE="$3"
 #FILE=$(ls /dataToShare/ | sort -R | tail -1)
 
 echo "CONNECTING ..."
-ftp -n $HOST <<END_SCRIPT
+ftp -n $HOST 21 <<END_SCRIPT
 quote USER $USER
 quote PASS $PASS
 pwd

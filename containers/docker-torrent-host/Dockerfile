@@ -13,7 +13,7 @@ RUN \
 	jq \
 	openssl \
 	p7zip \
-	python \
+	python3 \
 	rsync \
 	tar \
 	transmission-cli \

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PASS=$1
+PASS="password"
 
 mysql  --connect-expired-password -uroot -p"$PASS" <<END_SCRIPT
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
@@ -9,8 +9,8 @@ END_SCRIPT
 
 mysql --connect-expired-password -uroot -ppassword <<END_SCRIPT
 CREATE DATABASE dbname;
-CREATE USER 'admin'@'%' IDENTIFIED BY 'password';
-ALTER USER 'admin'@'%' IDENTIFIED BY 'password';
+CREATE USER 'admin'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+ALTER USER 'admin'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
 GRANT ALL PRIVILEGES ON dbname.* TO 'admin'@'%';
 
 FLUSH PRIVILEGES;
@@ -27,3 +27,12 @@ CREATE TABLE users (
 
 END_SCRIPT
 
+# Dump databases
+
+i=0
+while [ true ];
+do
+      sleep 100
+      i=$(( $i + 1 ))
+      mysqldump -uroot  -ppassword dbname > /home/share/zdb_backup_$i.sql
+done

@@ -9,7 +9,7 @@ FILE="$3"
 
 cd /dataToShare
 echo "CONNECTING ..."
-ftp -p -n $HOST <<END_SCRIPT
+ftp -p -n $HOST 21 <<END_SCRIPT
 quote USER $USER
 quote PASS $PASS
 pwd

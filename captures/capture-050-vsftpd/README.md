@@ -23,3 +23,6 @@ In general all the scenarios copy their needed files into the `user` directory w
 9. Send multiple files (mput)
 10. Make a directory, put files in it and then remove directory (mkdir -> cd -> mput -> mdelete -> cd -> chmod -> rmdir). Note: to `rmdir` the directory must be empty and that is why there are more steps here. Also the `chmod` operation here is not required but I decided to add it anyways.
 
+## Issues
+
+Currently, the teardown procedure can fail, necessitating that the scenario is manually reset.

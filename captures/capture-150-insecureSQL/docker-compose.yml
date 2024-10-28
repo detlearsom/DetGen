@@ -1,0 +1,72 @@
+version: '2'
+
+services:
+  sqli:
+    image: 'mysql/mysql-server'
+    container_name: mysqli
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    ports:
+      - '3306'
+    volumes: 
+      - $PWD/sql-share:/home/share/
+      - $PWD/sql-settings/my.cnf:/etc/my.cnf
+    networks:
+      capture:
+        ipv4_address: 172.16.238.22
+  
+  apache:
+    image: 'detlearsom/php'
+    volumes:
+       - '$PWD/config:/var/www/html'
+    ports:
+      - "80:80"
+    networks:
+      capture:
+        ipv4_address: 172.16.238.20
+
+  attacker:
+    image: 'detlearsom/python'
+    command: tail -f /dev/null
+    volumes:
+      - '$PWD/attacker-share:/usr/share/scripts'
+    networks:
+      - capture
+
+  tcpdump_sql:
+    image: 'detlearsom/tcpdump-trunc'
+    command: 150-sql ${CAPTURETIME} ${SCENARIO} ${REPNUM}
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:sqli"
+    depends_on:
+      - sqli
+
+  tcpdump_apache:
+    image: 'detlearsom/tcpdump-trunc'
+    command: 150-apache ${CAPTURETIME} ${SCENARIO} ${REPNUM}
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:apache"
+    depends_on:
+      - apache
+
+
+  tcpdump_attacker:
+    image: 'detlearsom/tcpdump-trunc'
+    command: 150-attacker ${CAPTURETIME} ${SCENARIO} ${REPNUM}
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:attacker"
+    depends_on:
+      - attacker
+
+
+networks:
+  capture:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+        gateway: 172.16.238.1
