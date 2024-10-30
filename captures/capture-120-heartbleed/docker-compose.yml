@@ -1,12 +1,12 @@
 version: '2'
 services:
-  apache:
-    image: 'detlearsom/heartbleed'
+  nginx:
+    image: vulhub/openssl:1.0.1c-with-nginx
     volumes:
-      - '$PWD/config:/var/www/html'
+     - ./www:/var/www/html
     ports:
-      - "80:80"
-      - "443:443"
+     - "8080:80"
+     - "8443:443"
     networks:
       capture:
         ipv4_address: 172.16.233.15
@@ -14,8 +14,8 @@ services:
 
   msf:
     image: 'detlearsom/msfconsole'
+    #command: sleep 1000
     command: /var/lib/msf_script.sh $DURATION
-     # - msfconsole -r /var/lib/msf_script.rc
     volumes:
       - '$PWD/msf_share:/var/lib'
     networks:
@@ -23,31 +23,23 @@ services:
         ipv4_address: 172.16.233.20
 
 
-  tcpdump_apache:
+  tcpdump_nginx:
     image: 'detlearsom/tcpdump'
-    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-130-heartbleed-server-${CAPTURETIME}-$REPNUM.pcap"
+    command: dump-120-heartbleed ${CAPTURETIME} ${SCENARIO} ${REPNUM}
     volumes:
       - '$PWD/data:/data'
-    network_mode: "service:apache"
+    network_mode: "service:nginx"
     depends_on:
-      - dummy
+      - nginx
 
   tcpdump_msf:
     image: 'detlearsom/tcpdump'
-    command: not(ip6 or arp or (udp and (src port 5353 or src port 57621))) -v -w "/data/dump-130-heartbleed-client-${CAPTURETIME}-$REPNUM.pcap"
+    command: dump-120-attacker ${CAPTURETIME} ${SCENARIO} ${REPNUM}
     volumes:
       - '$PWD/data:/data'
     network_mode: "service:msf"
     depends_on:
-      - dummy
-
-
-  dummy:
-    image: 'ubuntu'
-    networks:
-      - capture
-    depends_on:
-      - apache
+      - msf
 
 networks:
   capture:

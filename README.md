@@ -18,10 +18,14 @@ We recommend setting up in an Ubuntu instance:
    <https://docs.docker.com/desktop/install/linux-install/>
 3. Clone this repository into a working directory:  
    `git clone https://github.com/detlearsom/DetGen`
-4. Build all the containers:  
-   `cd containers; sudu make all`
+4. Build all the images:  
+   `sudu make`
 
-To run scenarios, look at the control scripts inside the `captures` directory.
+Note that building all of the images takes up a large amount of storage and, depending on your use-case, it may be better to build a smaller number of images manually. For a given capture, the necessary images can be read from the `docker-compose.yml` file. We follow a standard naming procedure for our images: for a Dockerfile defined in `containers/docker-{NAME}`, the corresponding image should be tagged `detlearsom/{NAME}` when built.
+
+To run scenarios, look at the `capture.sh` scripts inside the `captures` directory.
+
+To introduce variation into the traffic, we use a series of scripts contained within the `captures/Controlfunctions` directory. In particular, the `tc-netem` scripts, `container_tc.sh` and `container_tc_local_bandwidth.sh` are useful to introduce network variations. By default, however, we have disabled these variations (simply by commenting them out of the `capture.sh` scripts) as these have a tendency to occasionally cause the docker network to break, requiring you to restart docker.
 
 ## Datasets
 
@@ -59,6 +63,10 @@ other working repositories.  Please contact us if you are interested.
 * Minor updates to documentation and to scripts for compatibility
 * Deprecation of prototype GUI interface
 
+### Release 1.0.2 (October 2024)
+
+* Added the rapidreset scenario
+* Fixed a lot of bugs! Although we attempted to make these scenarios as resiliant as possible, issues with deprecated package repositories or base images led to a number of scenarios being broken. We have fixed most of them (marking those that remain untested).
 
 
 ## Publications

@@ -36,7 +36,7 @@ do
     echo "Initial 30 second pause to set up mysql and apache containers...."
     ./config/inserver.sh;
     sleep 30;
-    docker exec mysql /home/share/sql_script.sh;
+    docker exec mysql /home/share/sql_script.sh &
     echo "Capturing data now for $DURATION seconds...."
     sleep $DURATION
     teardown;

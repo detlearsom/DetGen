@@ -1,3 +1,1 @@
-FROM andrewmichaelsmith/docker-heartbleed
-
-RUN apt-get install -y iputils-ping net-tools iproute
+FROM vulhub/openssl:1.0.1c-with-nginx

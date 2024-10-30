@@ -78,6 +78,6 @@ def either(count, sess_id):
         else:
             register(sess_id)
 
-time.sleep(40)
+time.sleep(10)
 id = get_session()
 either(20000, id)

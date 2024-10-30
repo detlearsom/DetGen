@@ -1,0 +1,20 @@
+# Available scenarios
+
+1. 020-nginx: Server (running nginx) and client (running siege) on an isolated network. Two tcpdump containers attached to server and client IP stacks' respectively. Run container with script in the folder. First argument is duration of simualtion, second is the number of concurrent threads (bots) that siege creates and the third argument is the number of requests each bot makes. For example `./capture-nginx.sh 5 10 100`. Please MAKE SURE to have quites a few requests going (at least 100) because the tcpdump containers start only AFTER the main containers (nginx and siege) have already started. If you do not do that, the siege container will have made all requests and exited which would mean that tcpdump_siege would have no container to latch on to. The server is running a single-file webpage.
+2. 021-nginxWget: Server (running nginx) and client (running watch wget) on an isolated network. Tcpdump attached to stack of client. The server is running a large webpage ~400MB and the client is traversing and downloading that.
+3. 022-nginxSSL: Server (running nginx) and two clinets (running watch wget). One client is requesting the HTTP version of the server and the other the HTTP/SSL version. Tcpdump continers attached accordingly. The nginx server has a self-issued certificate issued using http://scmquest.com/nginx-docker-container-with-https-protocol/. 
+4. 040-apache: Server (running apache) and client (running siege) on an isolated network. Two tcpdump containers attached to server and client IP stacks' respectively. Run container with script in the folder. First argument is duration of simualtion, second is the number of concurrent threads (bots) that siege creates and the third argument is the number of requests each bot makes. For example `./capture-nginx.sh 5 10 100`. Please MAKE SURE to have quites a few requests going (at least 100) because the tcpdump containers start only AFTER the main containers (nginx and siege) have already started. If you do not do that, the siege container will have made all requests and exited which would mean that tcpdump_siege would have no container to latch on to. The server is running a single-file webpage.
+5. 041-apacheWget: Server (running apache) and client (running watch wget) on an isolated network. Two tcpdump containers attached to server and client IP stacks' respectively. The server is running a large webpage ~400MB and the client is traversing and downloading that.
+6. 050-vsftpd: Server running vsftpd and client running ftp. Tcpdump containers attached to them respectively. There are 10 scenarios. Run a scenario by going into the folder and running `./capture-vsftpd.sh NUM` where NUM is the scenario number. Please see README.md file in the folder for more information.
+7. 080-syncthing: A container running syncthing. The folder contains Python scripts that add/modify/delete files in the syncthing clients and verify that changes have been made. (Untested)
+8. 090-sshd: A contianer running sshd. (Untested)
+9. 100-irc: Container running ircd-docker and two ubuntu containers with installed nc. (untested)
+10. 120-heartbleed: A vulnerable Apache-server and a client-console container running the Hearbleed exploit on it
+11. 130-bittorrent: A torrent client receiving the torrent-address from a tracker and communicating with a torrent host
+12. 140-secureSQL: An Apache-server container receiving requests from a client-container and receiving info from the SQL-backend-server-container
+13. 150-insecureSQL: The same scenario as 140-secureSQL, but the client performs SQL injection.
+14. 190-MPD: MPC-client-container interacting with a mopidy-server-container to stream and play music
+15. 230-wgetssl: A WGET-container downloading a random webpages over SSL
+16. 240-stream: This scenario consists of a streamer, who uploads a video to an nginx server to be livestreamed to a viewer over RTMP.
+17. 260-XXE: A simple Apache webapp that is vulnerable to XXE.
+18. 360-rapidreset: A scenario which generates 'rapidreset' traffic, a DoS attack tailored for HTTP/2.

@@ -29,9 +29,9 @@ function add_delays {
     DELAY3=$((RANDOM % 100 + 1))
 
 
-    ./container_tc.sh capture-022-nginxssl_nginx_1 $DELAY1
-    ./container_tc.sh capture-022-nginxssl_wget_80_1 $DELAY2
-    ./container_tc.sh capture-022-nginxssl_wget_443_1 $DELAY3
+    ../Capturefunctions/container_tc.sh capture-022-nginxssl-nginx_1 $DELAY1
+    ../Capturefunctions/container_tc.sh capture-022-nginxssl-wget_80_1 $DELAY2
+    ../Capturefunctions/container_tc.sh capture-022-nginxssl-wget_443_1 $DELAY3
 }
 
 trap '{ echo "Interrupted."; teardown; exit 1; }' INT

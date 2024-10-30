@@ -16,7 +16,7 @@ services:
 
   mpc:
     image: 'detlearsom/mpc-cli'
-    command: tail -f /dev/null
+    #command: 
     volumes:
       - '$PWD/scripts/:/var/lib/scripts'
     networks: 

@@ -49,14 +49,13 @@ do
     docker exec -ti $VAR2 /bin/sh -c "/usr/src/scripts/inclient${SCENARIO}.sh $User $Password $FILENAME"
     sleep $DURATION
 #    docker exec -ti $VAR2 /bin/sh -c "/usr/src/scripts/inclient$1.sh $User $Password" 
-    cd ..
     ################################################################################
     #. ../Controlfunctions/kill_load.sh
     #. ../Controlfunctions/label_writer.sh
     ################################################################################
     # Wait 2 seconds then take things down
     echo "Stopping" 
-    docker-compose down --remove-orphans -v
+    docker-compose --no-ansi --log-level ERROR down --remove-orphans -v
     echo "Stopping" 
     #Remove all files so that you can start with a clean slate    
     rm -f -r dataToShare/

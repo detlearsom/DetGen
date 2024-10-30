@@ -1,0 +1,1 @@
+Running the capture script - with arguments DURATION and REPEAT - creates an apache server that is vulnerable to heartbleed and an container running msfconsole, which triggers the heartbleed exploit 5 times after a random amount of time (that is always less than the value of DURATION).
