@@ -8,10 +8,15 @@ REPEAT="$2"
 [ -z "$DURATION" ] && DURATION=60
 [ -z "$REPEAT" ] && REPEAT=1
 
+ContainerIDS=("capture-022-nginxssl-nginx-1" "capture-022-nginxssl-wget_80-1" "capture-022-nginxssl-wget_443-1")
+
 function bringup {
     echo "Start the containerised applications..."
     export DATADIR="$PWD/data"
     docker-compose --no-ansi --log-level ERROR up -d 
+    ## Uncomment below to randomise container bandwidth
+    #../Controlfunctions/container_tc_local_bandwidth.sh 1 "${ContainerIDS[0]}" "${ContainerIDS[1]}" "${ContainerIDS[2]}"
+
 }
 
 function teardown {

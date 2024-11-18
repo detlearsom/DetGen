@@ -6,11 +6,14 @@ REPEAT="$3"
 [ -z "$DURATION" ] && DURATION=60
 [ -z "$REPEAT" ] && REPEAT=1
 
+ContainerIDS=("capture-190-mpd-mopidy_1" "capture-190-mpd-mpc_1")
 
 function bringup {
     echo "Start the containerised applications..."
     export DATADIR="$PWD/data"
     docker-compose --no-ansi --log-level ERROR up -d 
+    ## Uncomment below to randomise container bandwidth
+    #../Controlfunctions/container_tc_local_bandwidth.sh 1 "${ContainerIDS[0]}" "${ContainerIDS[1]}"
 }
 
 
@@ -34,8 +37,8 @@ function add_delays {
     DELAY1=$((RANDOM % 100 + 1))
     DELAY2=$((RANDOM % 100 + 1))
 
-    ./container_tc.sh capture-190-mpd_mpc_1 $DELAY1
-    ./container_tc.sh capture-190-mpd_mopidy_1 $DELAY2
+    ../Controlfunctions/container_tc.sh capture-190-mpd-mpc_1 $DELAY1
+    ../Controlfunctions/container_tc.sh capture-190-mpd-mopidy_1 $DELAY2
 }
 
 

@@ -9,10 +9,14 @@ REPEAT="$2"
 [ -z "$REPEAT" ] && REPEAT=1
 
 
+ContainerIDS=("capture-042-apachessl-apache-1" "capture-042-apachessl-wget_80-1" "capture-042-apachessl-wget_443-1")
+
 function bringup {
     echo "Start the containerised applications..."
     export DATADIR="$PWD/data"
-    docker-compose --no-ansi --log-level ERROR up -d 
+    docker-compose --no-ansi --log-level ERROR up -d     
+    ## Uncomment below to randomise container bandwidth
+    #../Controlfunctions/container_tc_local_bandwidth.sh 1 "${ContainerIDS[0]}" "${ContainerIDS[1]}" "${ContainerIDS[2]}"
 }
 
 function teardown {

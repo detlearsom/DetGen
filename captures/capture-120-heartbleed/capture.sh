@@ -9,10 +9,14 @@ DURATION="$2"
 [ -z "$DURATION" ] && DURATION=60
 [ -z "$REPEAT" ] && REPEAT=1
 
+ContainerIDS=("capture-120-heartbleed-apache_1" "capture-120-heartbleed-msf_1")
+
 function bringup {
     echo "Start the containerised applications..."
     export DATADIR="$PWD/data"
     docker-compose --no-ansi --log-level ERROR up -d 
+    ## Uncomment below to randomise container bandwidth
+    #../Controlfunctions/container_tc_local_bandwidth.sh 1 "${ContainerIDS[0]}" "${ContainerIDS[1]}" "${ContainerIDS[2]}"
 }
 
 function teardown {
@@ -25,7 +29,6 @@ function teardown {
 
 trap '{ echo "Interrupted."; teardown; exit 1; }' INT
 
-ContainerIDS=("capture-120-heartbleed-apache_1" "capture-120-heartbleed-msf_1")
 for ((i=1; i<=REPEAT; i++))
 do
     echo "Repeat Nr " $i
@@ -34,20 +37,20 @@ do
     cp -r ../../SampleFiles/dataToShare dataToShare/    
     # Randomise user-ID and password
 #    . ../Controlfunctions/UserID_generator.sh
-    # . ../Controlfunctions/file_creator.sh
+#    . ../Controlfunctions/file_creator.sh
 #    . ../Controlfunctions/activity_selector.sh 13
     rm -f config/secret.txt
     mv dataToShare/$FILENAME config/secret.txt
     ################################################################################
     bringup;
-   # . ../Controlfunctions/container_tc.sh "${ContainerIDS[0]}" "${ContainerIDS[1]}"
-   # . ../Controlfunctions/set_load.sh ${Nworkers}
+#   . ../Controlfunctions/container_tc.sh "${ContainerIDS[0]}" "${ContainerIDS[1]}"
+#   . ../Controlfunctions/set_load.sh ${Nworkers}
     ################################################################################
     echo "Capturing data now for $DURATION seconds...."
     sleep $DURATION
     ################################################################################
-    #. ../Controlfunctions/kill_load.sh
-    #. ../Controlfunctions/label_writer.sh
+#   . ../Controlfunctions/kill_load.sh
+#   . ../Controlfunctions/label_writer.sh
     ################################################################################    
     teardown;
     rm -f -r dataToShare/    

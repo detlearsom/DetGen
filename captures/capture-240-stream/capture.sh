@@ -9,12 +9,15 @@ REPEAT="$2"
 [ -z "$DURATION" ] && DURATION=60
 [ -z "$REPEAT" ] && REPEAT=1
 
+ContainerIDS=("capture-240-stream-nginx_host_1" "capture-240-stream-streamer_1" "capture-240-stream-viewer_1")
 
 
 function bringup {
     echo "Start the containerised applications..."
     export DATADIR="$PWD/data"
     docker-compose --no-ansi --log-level ERROR up -d
+    ## Uncomment below to randomise container bandwidth
+    #../Controlfunctions/container_tc_local_bandwidth.sh 1 "${ContainerIDS[0]}" "${ContainerIDS[1]}" "${ContainerIDS[2]}"
 }
 
 
@@ -32,9 +35,9 @@ function add_delays {
     DELAY2=$((RANDOM % 400 + 101))
     DELAY3=$((RANDOM % 400 + 101))
 
-    ./container_tc.sh capture-240-stream_streamer_1 $DELAY1
-    ./container_tc.sh capture-240-stream_viewer_1 $DELAY2
-    ./container_tc.sh capture-240-stream_nginx_host_1 $DELAY3
+    ../Controlfunctions/container_tc.sh capture-240-stream-streamer_1 $DELAY1
+    ../Controlfunctions/container_tc.sh capture-240-stream-viewer_1 $DELAY2
+    ../Controlfunctions/container_tc.sh capture-240-stream-nginx_host_1 $DELAY3
 }
 
 trap '{ echo "Interrupted."; teardown; exit 1; }' INT

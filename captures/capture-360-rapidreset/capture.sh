@@ -1,18 +1,19 @@
 #!/bin/bash
 
-DURATION="$1"
-REPEAT="$2"
+export SCENARIO="$1"
+DURATION="$2"
 export CAPTURETIME=`date +%Y-%m-%d_%H-%M-%S`
-export DATADIR="$PWD/data"
+REPEAT="$3"
 
+[ -z "$SCENARIO" ] && SCENARIO=0
 [ -z "$DURATION" ] && DURATION=60
 [ -z "$REPEAT" ] && REPEAT=1
 
-ContainerIDS=("capture-041-apachewget-apache-1" "capture-041-apachewget-wget-1")
+ContainerIDS=("capture-360-rapidreset-rapidreset_1" "capture-360-rapidreset-apache_1")
 
 function bringup {
     echo "Start the containerised applications..."
-    #export DATADIR="$PWD/data"
+    export DATADIR="$PWD/data"
     docker-compose --no-ansi --log-level ERROR up -d 
     ## Uncomment below to randomise container bandwidth
     #../Controlfunctions/container_tc_local_bandwidth.sh 1 "${ContainerIDS[0]}" "${ContainerIDS[1]}"

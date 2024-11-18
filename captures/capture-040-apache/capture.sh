@@ -10,10 +10,14 @@ REPEAT="$2"
 [ -z "$CONCURRENT_THREADS" ] && CONCURRENT_THREADS=1
 [ -z "$REQUESTS" ] && REQUESTS=20
 
+ContainerIDS=("capture-040-apache-apache-1" "capture-040-apache-siege-1")
+
 function bringup {
     echo "Start the containerised applications..."
     export DATADIR="$PWD/data"
     docker-compose --no-ansi --log-level ERROR up -d 
+    ## Uncomment below to randomise container bandwidth
+    #../Controlfunctions/container_tc_local_bandwidth.sh 1 "${ContainerIDS[0]}" "${ContainerIDS[1]}"
 }
 
 function teardown {
