@@ -16,7 +16,8 @@ services:
 
   mpc:
     image: 'detlearsom/mpc-cli'
-    #command: 
+   #command: /var/lib/scripts/inclient${SCENARIO}.sh
+    command: sleep 1000
     volumes:
       - '$PWD/scripts/:/var/lib/scripts'
     networks: 
@@ -33,14 +34,14 @@ services:
     depends_on:
       - mopidy
 
-  tcpdump_mpc:
-    image: 'detlearsom/tcpdump'
-    command: dump-190-mpc ${CAPTURETIME} ${SCENARIO} ${REPNUM}
-    volumes:
-      - '$PWD/data:/data'
-    network_mode: "service:mpc"
-    depends_on:
-      - mpc
+#  tcpdump_mpc:
+#    image: 'detlearsom/tcpdump'
+#    command: dump-190-mpc ${CAPTURETIME} ${SCENARIO} ${REPNUM}
+#    volumes:
+#      - '$PWD/data:/data'
+#    network_mode: "service:mpc"
+#    depends_on:
+#      - mpc
 
 networks:
   capture:
