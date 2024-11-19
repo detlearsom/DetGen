@@ -23,14 +23,14 @@ services:
     networks:
       - capture
 
-#  tcpdump_apache:
-#    image: 'detlearsom/tcpdump-trunc'
-#    command: dump-300-apache-server ${CAPTURETIME} ${SCENARIO} ${REPNUM}
-#    volumes:
-#      - '$PWD/data:/data'
-#    network_mode: "service:apache"
-#    depends_on:
-#      - apache
+  tcpdump_apache:
+    image: 'detlearsom/tcpdump-trunc'
+    command: dump-360-apache-server ${CAPTURETIME} ${SCENARIO} ${REPNUM}
+    volumes:
+      - '$PWD/data:/data'
+    network_mode: "service:apache"
+    depends_on:
+      - apache
 
 
   tcpdump_rr:

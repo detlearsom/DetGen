@@ -1,5 +1,8 @@
 import requests
 import sys
+from time import sleep
+
+sleep(5)
 
 command = sys.argv[1]
 

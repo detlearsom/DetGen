@@ -30,8 +30,6 @@ function teardown {
 
 trap '{ echo "Interrupted."; teardown; exit 1; }' INT
 
-ContainerIDS=("capture-021-nginxwget_wget_1" "capture-021-nginxwget_nginx_1")
-
 for ((i=1; i<=REPEAT; i++))
 do
     echo "Repeat Nr " $i

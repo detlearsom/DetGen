@@ -10,6 +10,8 @@ export CAPTURETIME=`date +%Y-%m-%d_%H-%M-%S`
 [ -z "$DURATION" ] && DURATION=60
 [ -z "$REPEAT" ] && REPEAT=1
 
+ContainerIDS=("capture-130-bittorrent-torrent_1" "capture-130-bittorrent_torrent_client1_1")
+
 function bringup {
     echo "Start the containerised applications..."
     export DATADIR="$PWD/data"
@@ -68,7 +70,6 @@ function torrent_delete {
     done
 }
 
-ContainerIDS=("capture-130-bittorrent-torrent_1" "capture-130-bittorrent_torrent_client1_1")
 
 for ((i=1; i<=REPEAT; i++))
 do

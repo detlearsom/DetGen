@@ -8,7 +8,7 @@ export REPEAT="$3"
 [ -z "$DURATION" ] && DURATION=60
 [ -z "$REPEAT" ] && REPEAT=1
 
-ContainerIDS=("capture-260-xxe-apache_1" "capture-260-xxe-attacker_1")
+ContainerIDS=("capture-260-xxe-apache-1" "capture-260-xxe-attacker-1")
 
 function bringup {
     echo "Start the containerised applications..."

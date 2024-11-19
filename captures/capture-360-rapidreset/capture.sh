@@ -9,7 +9,7 @@ REPEAT="$3"
 [ -z "$DURATION" ] && DURATION=60
 [ -z "$REPEAT" ] && REPEAT=1
 
-ContainerIDS=("capture-360-rapidreset-rapidreset_1" "capture-360-rapidreset-apache_1")
+ContainerIDS=("capture-360-rapidreset-rapidreset-1" "capture-360-rapidreset-apache-1")
 
 function bringup {
     echo "Start the containerised applications..."

@@ -6,7 +6,7 @@ REPEAT="$3"
 [ -z "$DURATION" ] && DURATION=60
 [ -z "$REPEAT" ] && REPEAT=1
 
-ContainerIDS=("capture-190-mpd-mopidy_1" "capture-190-mpd-mpc_1")
+ContainerIDS=("capture-190-mpd-mopidy-1" "capture-190-mpd-mpc-1")
 
 function bringup {
     echo "Start the containerised applications..."
@@ -27,7 +27,6 @@ function teardown {
 
 function scenario {
     VAR="$(docker ps | grep "mpd-mpc")"
-    echo $VAR
     VAR2="${VAR:0:8}"
     docker exec -ti $VAR2 /bin/sh -c "/var/lib/scripts/inclient$SCENARIO.sh $DURATION" 
 }
@@ -37,8 +36,8 @@ function add_delays {
     DELAY1=$((RANDOM % 100 + 1))
     DELAY2=$((RANDOM % 100 + 1))
 
-    ../Controlfunctions/container_tc.sh capture-190-mpd-mpc_1 $DELAY1
-    ../Controlfunctions/container_tc.sh capture-190-mpd-mopidy_1 $DELAY2
+    ../Controlfunctions/container_tc.sh capture-190-mpd-mpc-1 $DELAY1
+    ../Controlfunctions/container_tc.sh capture-190-mpd-mopidy-1 $DELAY2
 }
 
 

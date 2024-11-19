@@ -9,7 +9,7 @@ REPEAT="$2"
 [ -z "$DURATION" ] && DURATION=60
 [ -z "$REPEAT" ] && REPEAT=1
 
-ContainerIDS=("capture-240-stream-nginx_host_1" "capture-240-stream-streamer_1" "capture-240-stream-viewer_1")
+ContainerIDS=("capture-240-stream-nginx_host-1" "capture-240-stream-streamer-1" "capture-240-stream-viewer-1")
 
 
 function bringup {
